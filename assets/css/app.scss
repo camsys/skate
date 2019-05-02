@@ -20,6 +20,15 @@ ul {
   padding: 0;
 }
 
+button {
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: $dark;
+  cursor: pointer;
+  font-family: $font-family;
+}
+
 .m-app {
   display: flex;
 }
