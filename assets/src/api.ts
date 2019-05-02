@@ -1,11 +1,11 @@
-import { Route, RouteId, TimepointId } from "./skate.d"
+import { ByRouteId, Route, RouteId, TimepointId } from "./skate.d"
 
 interface RoutesResponse {
   data: Route[]
 }
 
 interface TimepointsResponse {
-  data: TimepointId[]
+  data: ByRouteId<TimepointId[]>
 }
 
 const checkResponseStatus = (response: Response) => {
@@ -28,15 +28,21 @@ export const fetchRoutes = (): Promise<Route[]> =>
       throw error
     })
 
-export const fetchTimepointsForRoute = (
-  routeId: RouteId
-): Promise<TimepointId[]> =>
-  fetch(`/api/routes/${routeId}`)
+export const fetchTimepointsForRoutes = (
+  routeIds: RouteId[]
+): Promise<ByRouteId<TimepointId[]>> => {
+  const queryParams = routeIds
+    .map((routeId: RouteId) => "route_id[]=" + routeId)
+    .join("&")
+  return fetch(`/api/timepoints?${queryParams}`)
     .then(checkResponseStatus)
     .then(parseJson)
-    .then(({ data: timepointIds }: TimepointsResponse) => timepointIds)
+    .then(
+      ({ data: timepointsByRouteId }: TimepointsResponse) => timepointsByRouteId
+    )
     .catch(error => {
       // tslint:disable-next-line: no-console
       console.error(error)
       throw error
     })
+}

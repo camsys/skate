@@ -7,7 +7,12 @@ import {
   useRouteFilter,
 } from "../hooks/useRouteFilter"
 import { Route, RouteId } from "../skate.d"
-import { deselectRoute, selectRoute } from "../state"
+import {
+  deselectRoute,
+  deselectRoutes,
+  selectRoute,
+  selectRoutes,
+} from "../state"
 import Loading from "./loading"
 
 interface Props {
@@ -16,6 +21,7 @@ interface Props {
 }
 
 const RoutePicker = ({ routes, selectedRouteIds }: Props) => {
+  const dispatch = useContext(DispatchContext)
   const routeFilterData: RouteFilterData = useRouteFilter()
 
   const filteredRoutes = filterRoutes(routes || [], routeFilterData)
@@ -25,6 +31,23 @@ const RoutePicker = ({ routes, selectedRouteIds }: Props) => {
       <SelectedRoutesList selectedRouteIds={selectedRouteIds} />
 
       <RouteFilter {...routeFilterData} />
+
+      <button
+        className="m-route-picker__all-button"
+        onClick={() =>
+          dispatch(deselectRoutes(filteredRoutes.map(route => route.id)))
+        }
+      >
+        Clear All
+      </button>
+      <button
+        className="m-route-picker__all-button"
+        onClick={() =>
+          dispatch(selectRoutes(filteredRoutes.map(route => route.id)))
+        }
+      >
+        Select All
+      </button>
 
       {routes === null ? (
         <Loading />

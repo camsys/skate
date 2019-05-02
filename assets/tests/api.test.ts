@@ -1,4 +1,4 @@
-import { fetchRoutes, fetchTimepointsForRoute } from "../src/api"
+import { fetchRoutes, fetchTimepointsForRoutes } from "../src/api"
 
 // tslint:disable no-empty
 
@@ -51,19 +51,23 @@ describe("fetchRoutes", () => {
   })
 })
 
-describe("fetchTimepointsForRoute", () => {
-  test("fetches a list of timepointIds for a route", done => {
+describe("fetchTimepointsForRoutes", () => {
+  test("fetches a list of timepoints for multiple routes", done => {
+    const timepointsByRouteId = {
+      "1": ["WASMA", "MELWA", "HHGAT"],
+      "28": ["MATPN", "WELLH", "MORTN"],
+    }
     window.fetch = () =>
       Promise.resolve({
         json: () => ({
-          data: ["MATPN", "WELLH", "MORTN"],
+          data: timepointsByRouteId,
         }),
         ok: true,
         status: 200,
       })
 
-    fetchTimepointsForRoute("28").then(timepointIds => {
-      expect(timepointIds).toEqual(["MATPN", "WELLH", "MORTN"])
+    fetchTimepointsForRoutes(["1", "28"]).then(result => {
+      expect(result).toEqual(timepointsByRouteId)
       done()
     })
   })
@@ -79,7 +83,7 @@ describe("fetchTimepointsForRoute", () => {
     const spyConsoleError = jest.spyOn(console, "error")
     spyConsoleError.mockImplementationOnce(() => {})
 
-    fetchTimepointsForRoute("28")
+    fetchTimepointsForRoutes(["28"])
       .then(() => {
         spyConsoleError.mockRestore()
         done("fetchTimepointsForRoute did not throw an error")

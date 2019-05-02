@@ -9,46 +9,58 @@ export const initialState: State = {
   selectedRouteIds: [],
 }
 
-interface SelectRouteAction {
-  type: "SELECT_ROUTE"
+interface SelectRoutesAction {
+  type: "SELECT_ROUTES"
   payload: {
-    routeId: RouteId
+    routeIds: RouteId[]
   }
 }
 
-export const selectRoute = (routeId: RouteId): SelectRouteAction => ({
-  type: "SELECT_ROUTE",
-  payload: { routeId },
+export const selectRoute = (routeId: RouteId): SelectRoutesAction => ({
+  type: "SELECT_ROUTES",
+  payload: { routeIds: [routeId] },
 })
 
-interface DeselectRouteAction {
-  type: "DESELECT_ROUTE"
+export const selectRoutes = (routeIds: RouteId[]): SelectRoutesAction => ({
+  type: "SELECT_ROUTES",
+  payload: { routeIds },
+})
+
+interface DeselectRoutesAction {
+  type: "DESELECT_ROUTES"
   payload: {
-    routeId: RouteId
+    routeIds: RouteId[]
   }
 }
 
-export const deselectRoute = (routeId: RouteId): DeselectRouteAction => ({
-  type: "DESELECT_ROUTE",
-  payload: { routeId },
+export const deselectRoute = (routeId: RouteId): DeselectRoutesAction => ({
+  type: "DESELECT_ROUTES",
+  payload: { routeIds: [routeId] },
 })
 
-type Action = SelectRouteAction | DeselectRouteAction
+export const deselectRoutes = (routeIds: RouteId[]): DeselectRoutesAction => ({
+  type: "DESELECT_ROUTES",
+  payload: { routeIds },
+})
+
+type Action = SelectRoutesAction | DeselectRoutesAction
 
 export type Dispatch = ReactDispatch<Action>
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "SELECT_ROUTE":
+    case "SELECT_ROUTES":
       return {
         ...state,
-        selectedRouteIds: [...state.selectedRouteIds, action.payload.routeId],
+        selectedRouteIds: state.selectedRouteIds.concat(
+          action.payload.routeIds
+        ),
       }
-    case "DESELECT_ROUTE":
+    case "DESELECT_ROUTES":
       return {
         ...state,
         selectedRouteIds: state.selectedRouteIds.filter(
-          id => id !== action.payload.routeId
+          id => !action.payload.routeIds.includes(id)
         ),
       }
     default:

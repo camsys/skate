@@ -28,6 +28,6 @@ defmodule SkateWeb.Router do
     pipe_through :api
 
     get "/routes", RouteController, :index
-    get "/routes/:route_id", RouteController, :show
+    get "/timepoints", TimepointController, :index
   end
 end

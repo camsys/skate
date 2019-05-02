@@ -1,39 +1,33 @@
 import { useEffect, useState } from "react"
-import { fetchTimepointsForRoute } from "../api"
-import { RouteId, TimepointId, TimepointsByRouteId } from "../skate"
+import { fetchTimepointsForRoutes } from "../api"
+import { ByRouteId, RouteId, TimepointId, TimepointsByRouteId } from "../skate"
 
 const useTimepoints = (selectedRouteIds: RouteId[]): TimepointsByRouteId => {
   const [timepointsByRouteId, setTimepointsByRouteId] = useState<
     TimepointsByRouteId
   >({})
 
-  const setLoadingTimepointsForRoute = (routeId: RouteId): void => {
-    setTimepointsByRouteId({
-      ...timepointsByRouteId,
-      [routeId]: null,
-    })
-  }
-
-  const setTimepointsForRoute = (
-    routeId: RouteId,
-    timepointIds: TimepointId[]
-  ): void => {
-    setTimepointsByRouteId({
-      ...timepointsByRouteId,
-      [routeId]: timepointIds,
-    })
-  }
-
   useEffect(() => {
-    selectedRouteIds.forEach((routeId: RouteId) => {
-      if (!(routeId in timepointsByRouteId)) {
-        setLoadingTimepointsForRoute(routeId)
-
-        fetchTimepointsForRoute(routeId).then((newTimepointIds: TimepointId[]) =>
-          setTimepointsForRoute(routeId, newTimepointIds)
-        )
-      }
-    })
+    const newRouteIds = selectedRouteIds.filter(
+      (routeId: RouteId) => !(routeId in timepointsByRouteId)
+    )
+    if (newRouteIds.length > 0) {
+      const loadingTimepointsByRouteId: TimepointsByRouteId = newRouteIds.reduce(
+        (acc, routeId) => ({ ...acc, [routeId]: null }),
+        {}
+      )
+      setTimepointsByRouteId((oldTimepointsByRouteId: TimepointsByRouteId) =>
+        Object.assign({}, loadingTimepointsByRouteId, oldTimepointsByRouteId)
+      )
+      fetchTimepointsForRoutes(newRouteIds).then(
+        (newTimepointsByRouteId: ByRouteId<TimepointId[]>) => {
+          setTimepointsByRouteId(
+            (oldTimepointsByRouteId: TimepointsByRouteId) =>
+              Object.assign({}, oldTimepointsByRouteId, newTimepointsByRouteId)
+          )
+        }
+      )
+    }
   }, [selectedRouteIds, timepointsByRouteId])
 
   return timepointsByRouteId
