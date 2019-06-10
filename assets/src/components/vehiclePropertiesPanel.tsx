@@ -4,6 +4,7 @@ import detectSwipe, { SwipeDirection } from "../helpers/detectSwipe"
 import { Route, Vehicle } from "../skate.d"
 import { deselectVehicle } from "../state"
 import CloseButton from "./closeButton"
+import VehicleIcon, { Orientation, Size } from "./vehicleIcon"
 
 interface Props {
   selectedVehicle: Vehicle
@@ -20,7 +21,14 @@ const Header = ({
   hideMe: () => void
 }) => (
   <div className="m-vehicle-properties-panel__header">
-    <div className="m-vehicle-properties-panel__label">{vehicle.label}</div>
+    <div className="m-vehicle-properties-panel__label">
+      <VehicleIcon
+        size={Size.Large}
+        orientation={Orientation.Up}
+        label={vehicle.label}
+        variant={vehicle.via_variant}
+      />
+    </div>
     <div className="m-vehicle-properties-panel__variant">
       <div className="m-vehicle-properties-panel__inbound-outbound">
         {directionName(vehicle, selectedVehicleRoute)}
