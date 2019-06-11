@@ -9,6 +9,7 @@ import {
 } from "../skate"
 import RouteLadders from "./routeLadders"
 import RoutePicker from "./routePicker"
+import VehicleIconGallery from "./vehicleIconGallery"
 import VehiclePropertiesPanel from "./vehiclePropertiesPanel"
 
 interface Props {
@@ -57,6 +58,10 @@ const App = ({
   return (
     <div className="m-app">
       <RoutePicker routes={routes} selectedRouteIds={selectedRouteIds} />
+
+      {/*
+       */}
+      <VehicleIconGallery />
 
       <RouteLadders
         routes={selectedRoutes}
