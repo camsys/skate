@@ -18,7 +18,7 @@ export enum HeadwaySpacing {
 /** How the vehicle triangle should be drawn,
  * taking into account the vehicle's state and the settings
  */
-export type DrawnStatus = OnTimeStatus | "off-course" | "ghost" | "plain"
+export type DrawnStatus = OnTimeStatus | "ghost" | "plain"
 
 export const onTimeStatus = (scheduleAdherenceSecs: number): OnTimeStatus => {
   const oneMinuteInSeconds = 60

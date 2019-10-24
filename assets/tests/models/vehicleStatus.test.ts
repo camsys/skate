@@ -134,6 +134,6 @@ describe("status class", () => {
   })
 
   test("other statuses have a class", () => {
-    expect(statusClass("off-course")).toEqual("off-course")
+    expect(statusClass("late")).toEqual("late")
   })
 })

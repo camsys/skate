@@ -134,11 +134,6 @@ test("renders with all statuses", () => {
         <VehicleIcon
           size={Size.Medium}
           orientation={Orientation.Up}
-          status={"off-course"}
-        />
-        <VehicleIcon
-          size={Size.Medium}
-          orientation={Orientation.Up}
           status={"ghost"}
         />
         <VehicleIcon
