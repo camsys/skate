@@ -25,7 +25,6 @@ defmodule SkateWeb.VehiclesChannelTest do
     is_laying_over: false,
     layover_departure_time: nil,
     sources: MapSet.new(["swiftly"]),
-    data_discrepancies: [],
     stop_status: %{
       stop_id: "567",
       stop_name: "567"

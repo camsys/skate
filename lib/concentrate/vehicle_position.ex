@@ -4,8 +4,6 @@ defmodule Concentrate.VehiclePosition do
   """
   import Concentrate.StructHelpers
 
-  alias Concentrate.DataDiscrepancy
-
   defstruct_accessors([
     :id,
     :trip_id,
@@ -38,7 +36,6 @@ defmodule Concentrate.VehiclePosition do
     :schedule_adherence_string,
     :scheduled_headway_secs,
     :sources,
-    :data_discrepancies,
     current_status: :IN_TRANSIT_TO
   ])
 
@@ -135,7 +132,6 @@ defmodule Concentrate.VehiclePosition do
           scheduled_headway_secs:
             first_value(second.scheduled_headway_secs, first.scheduled_headway_secs),
           sources: merge_sources(first, second),
-          data_discrepancies: discrepancies(first, second),
           is_laying_over:
             only_swiftly(
               second.sources,
@@ -178,39 +174,5 @@ defmodule Concentrate.VehiclePosition do
       |> Enum.flat_map(&(VehiclePosition.sources(&1) || MapSet.new()))
       |> MapSet.new()
     end
-
-    defp discrepancies(first, second) do
-      attributes = []
-
-      Enum.flat_map(attributes, &discrepancy(&1, first, second))
-    end
-
-    defp discrepancy({key, accessor_fn}, first, second) do
-      first_val = accessor_fn.(first)
-      second_val = accessor_fn.(second)
-
-      if first_val != second_val do
-        [
-          %DataDiscrepancy{
-            attribute: key,
-            sources: [
-              %{
-                id: source_id(first.sources),
-                value: first_val
-              },
-              %{
-                id: source_id(second.sources),
-                value: second_val
-              }
-            ]
-          }
-        ]
-      else
-        []
-      end
-    end
-
-    @spec source_id(MapSet.t()) :: String.t()
-    defp source_id(sources), do: Enum.join(sources, "|")
   end
 end

@@ -31,7 +31,6 @@ const vehicle: Vehicle = {
   scheduledHeadwaySecs: 480,
   isLayingOver: false,
   layoverDepartureTime: null,
-  dataDiscrepancies: [],
   stopStatus: {
     stopId: "77",
     stopName: "Massachusetts Ave @ Marlborough St",
@@ -97,7 +96,6 @@ describe("HeadwayDiagram", () => {
       scheduledHeadwaySecs: 540,
       isLayingOver: false,
       layoverDepartureTime: null,
-      dataDiscrepancies: [],
       stopStatus: {
         stopId: "72",
         stopName: "Massachusetts Ave @ Pearl St",
@@ -145,7 +143,6 @@ describe("HeadwayDiagram", () => {
       scheduledHeadwaySecs: 600,
       isLayingOver: false,
       layoverDepartureTime: null,
-      dataDiscrepancies: [],
       stopStatus: {
         stopId: "11413",
         stopName: "Columbus Ave @ Walnut Ave",

@@ -41,7 +41,6 @@ const shuttlesData = [
   {
     bearing: 33,
     block_id: "block-1",
-    data_discrepancies: [],
     direction_id: 0,
     headsign: "Forest Hills",
     headway_secs: 859.1,
@@ -106,7 +105,6 @@ const shuttles: Vehicle[] = [
     scheduledHeadwaySecs: 120,
     isLayingOver: false,
     layoverDepartureTime: null,
-    dataDiscrepancies: [],
     stopStatus: {
       stopId: "s1",
       stopName: "Stop Name",

@@ -30,7 +30,6 @@ defmodule Realtime.VehicleTest do
     direction_id: 1,
     route_id: "28",
     sources: MapSet.new(["swiftly", "busloc"]),
-    data_discrepancies: []
   }
 
   describe "from_vehicle_position" do
@@ -100,7 +99,6 @@ defmodule Realtime.VehicleTest do
         is_laying_over: false,
         layover_departure_time: nil,
         sources: MapSet.new(["swiftly", "busloc"]),
-        data_discrepancies: [],
         stop_status: %{
           stop_id: "392",
           stop_name: "392"
@@ -193,7 +191,6 @@ defmodule Realtime.VehicleTest do
         is_laying_over: false,
         layover_departure_time: nil,
         sources: MapSet.new(["swiftly", "busloc"]),
-        data_discrepancies: [],
         stop_status: %{
           stop_id: "392",
           stop_name: "392"
@@ -208,9 +205,6 @@ defmodule Realtime.VehicleTest do
       assert encoded_string =~ "\"id\":\"y1261\""
 
       assert encoded_string =~ "\"route_id\":\"28\""
-
-      assert encoded_string =~
-               "\"data_discrepancies\":[]"
     end
   end
 end

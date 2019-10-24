@@ -86,8 +86,7 @@ defmodule Concentrate.Parser.SwiftlyRealtimeVehiclesTest do
           schedule_adherence_secs: 0,
           schedule_adherence_string: "0.0 sec (ontime)",
           scheduled_headway_secs: 120,
-          sources: MapSet.new(["swiftly"]),
-          data_discrepancies: nil
+          sources: MapSet.new(["swiftly"])
         )
 
       assert SwiftlyRealtimeVehicles.decode_vehicle(input) == expected

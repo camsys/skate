@@ -31,7 +31,6 @@ const vehicle: Vehicle = {
   scheduledHeadwaySecs: 120,
   isLayingOver: false,
   layoverDepartureTime: null,
-  dataDiscrepancies: [],
   stopStatus: {
     stopId: "59",
     stopName: "59",

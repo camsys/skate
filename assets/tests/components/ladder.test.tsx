@@ -41,7 +41,6 @@ describe("ladder", () => {
         scheduledHeadwaySecs: 120,
         isLayingOver: false,
         layoverDepartureTime: null,
-        dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
           stopName: "stop",
@@ -77,7 +76,6 @@ describe("ladder", () => {
         scheduledHeadwaySecs: 120,
         isLayingOver: false,
         layoverDepartureTime: null,
-        dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
           stopName: "stop",
@@ -119,7 +117,6 @@ describe("ladder", () => {
         scheduledHeadwaySecs: 120,
         isLayingOver: false,
         layoverDepartureTime: null,
-        dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
           stopName: "stop",
@@ -208,7 +205,6 @@ describe("ladder", () => {
         scheduledHeadwaySecs: 120,
         isLayingOver: false,
         layoverDepartureTime: null,
-        dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
           stopName: "stop",
@@ -270,7 +266,6 @@ describe("ladder", () => {
         scheduledHeadwaySecs: 120,
         isLayingOver: false,
         layoverDepartureTime: null,
-        dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
           stopName: "stop",
@@ -306,7 +301,6 @@ describe("ladder", () => {
         scheduledHeadwaySecs: 120,
         isLayingOver: false,
         layoverDepartureTime: null,
-        dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
           stopName: "stop",
@@ -370,7 +364,6 @@ describe("ladder", () => {
       scheduledHeadwaySecs: 120,
       isLayingOver: false,
       layoverDepartureTime: null,
-      dataDiscrepancies: [],
       stopStatus: {
         stopId: "stop",
         stopName: "stop",
@@ -428,7 +421,6 @@ describe("ladder", () => {
         scheduledHeadwaySecs: 120,
         isLayingOver: false,
         layoverDepartureTime: null,
-        dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
           stopName: "stop",
@@ -485,7 +477,6 @@ describe("ladder", () => {
         scheduledHeadwaySecs: 120,
         isLayingOver: false,
         layoverDepartureTime: null,
-        dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
           stopName: "stop",

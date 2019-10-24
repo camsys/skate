@@ -1,5 +1,5 @@
 defmodule Realtime.Vehicle do
-  alias Concentrate.{DataDiscrepancy, VehiclePosition}
+  alias Concentrate.VehiclePosition
   alias Gtfs.{Block, Direction, Route, RoutePattern, Stop, Trip}
   alias Realtime.Headway
   alias Realtime.TimepointStatus
@@ -37,7 +37,6 @@ defmodule Realtime.Vehicle do
           is_laying_over: boolean(),
           layover_departure_time: integer() | nil,
           sources: MapSet.t(String.t()),
-          data_discrepancies: [DataDiscrepancy.t()],
           stop_status: stop_status(),
           timepoint_status: TimepointStatus.timepoint_status() | nil,
           scheduled_location: TimepointStatus.scheduled_location() | nil,
@@ -95,8 +94,7 @@ defmodule Realtime.Vehicle do
     :stop_status,
     :timepoint_status,
     :scheduled_location,
-    :route_status,
-    data_discrepancies: []
+    :route_status
   ]
 
   @spec from_vehicle_position(map()) :: t()
@@ -148,7 +146,6 @@ defmodule Realtime.Vehicle do
         end
       end
 
-    data_discrepancies = VehiclePosition.data_discrepancies(vehicle_position)
 
     %__MODULE__{
       id: VehiclePosition.id(vehicle_position),
@@ -179,7 +176,6 @@ defmodule Realtime.Vehicle do
       is_laying_over: VehiclePosition.is_laying_over(vehicle_position),
       layover_departure_time: VehiclePosition.layover_departure_time(vehicle_position),
       sources: VehiclePosition.sources(vehicle_position),
-      data_discrepancies: data_discrepancies,
       stop_status: %{
         stop_id: stop_id,
         stop_name: stop_name

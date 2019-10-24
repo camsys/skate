@@ -4,7 +4,7 @@ defmodule Concentrate.VehiclePositionTest do
   alias Concentrate.Mergeable
 
   describe "Concentrate.Mergeable" do
-    test "merge/2 takes the latest of the two positions and notes discrepancies" do
+    test "merge/2 takes the latest of the two positions" do
       first =
         new(
           last_updated: 1,
@@ -20,8 +20,7 @@ defmodule Concentrate.VehiclePositionTest do
           last_updated: 2,
           latitude: 2,
           longitude: 2,
-          sources: MapSet.new(["first", "second"]),
-          data_discrepancies: []
+          sources: MapSet.new(["first", "second"])
         )
 
       assert Mergeable.merge(first, second) == expected
@@ -78,8 +77,7 @@ defmodule Concentrate.VehiclePositionTest do
           longitude: 2,
           trip_id: "swiftly_trip",
           route_id: "swiftly_route",
-          sources: MapSet.new(["busloc", "swiftly"]),
-          data_discrepancies: []
+          sources: MapSet.new(["busloc", "swiftly"])
         )
 
       expected_later =
@@ -89,8 +87,7 @@ defmodule Concentrate.VehiclePositionTest do
           longitude: 3,
           trip_id: "swiftly_trip",
           route_id: "swiftly_route",
-          sources: MapSet.new(["busloc", "swiftly"]),
-          data_discrepancies: []
+          sources: MapSet.new(["busloc", "swiftly"])
         )
 
       assert Mergeable.merge(swiftly, non_swiftly) == expected
@@ -127,47 +124,11 @@ defmodule Concentrate.VehiclePositionTest do
           longitude: 2,
           trip_id: nil,
           route_id: nil,
-          sources: MapSet.new(["busloc", "swiftly"]),
-          data_discrepancies: []
+          sources: MapSet.new(["busloc", "swiftly"])
         )
 
       assert Mergeable.merge(swiftly, non_swiftly) == expected
       assert Mergeable.merge(non_swiftly, swiftly) == expected
-    end
-
-    test "merge/2 doesn't include any data discrepancies if they values are the same" do
-      first =
-        new(
-          last_updated: 1,
-          latitude: 1,
-          longitude: 1,
-          trip_id: "trip",
-          route_id: "route",
-          sources: MapSet.new(["swiftly"])
-        )
-
-      second =
-        new(
-          last_updated: 2,
-          latitude: 2,
-          longitude: 2,
-          trip_id: "trip",
-          route_id: "route",
-          sources: MapSet.new(["second"])
-        )
-
-      expected =
-        new(
-          last_updated: 2,
-          latitude: 2,
-          longitude: 2,
-          trip_id: "trip",
-          route_id: "route",
-          sources: MapSet.new(["swiftly", "second"]),
-          data_discrepancies: []
-        )
-
-      assert Mergeable.merge(first, second) == expected
     end
   end
 

@@ -1,6 +1,5 @@
 import { HeadwaySpacing } from "../models/vehicleStatus"
 import {
-  DataDiscrepancy,
   Ghost,
   Vehicle,
   VehicleScheduledLocation,
@@ -42,7 +41,6 @@ export interface VehicleData {
   is_laying_over: boolean
   layover_departure_time: number | null
   sources: string[]
-  data_discrepancies: DataDiscrepancyData[]
   stop_status: VehicleStopStatusData
   timepoint_status: VehicleTimepointStatusData | null
   scheduled_location: VehicleScheduledLocationData | null
@@ -58,16 +56,6 @@ export interface GhostData {
   run_id: string | null
   via_variant: string | null
   scheduled_timepoint_status: VehicleTimepointStatusData
-}
-
-interface DataDiscrepancyData {
-  attribute: string
-  sources: DataDiscrepancySourceData[]
-}
-
-interface DataDiscrepancySourceData {
-  id: string
-  value: string
 }
 
 interface VehicleScheduledLocationData {
@@ -111,7 +99,6 @@ export const vehicleFromData = ({ isOnRoute }: { isOnRoute: boolean }) => (
   scheduledHeadwaySecs: vehicleData.scheduled_headway_secs,
   isLayingOver: vehicleData.is_laying_over,
   layoverDepartureTime: vehicleData.layover_departure_time,
-  dataDiscrepancies: dataDiscrepanciesFromData(vehicleData.data_discrepancies),
   stopStatus: vehicleStopStatusFromData(vehicleData.stop_status),
   timepointStatus:
     vehicleData.timepoint_status &&
@@ -157,14 +144,6 @@ const headwaySpacing = (raw: RawHeadwaySpacing): HeadwaySpacing | null => {
       return HeadwaySpacing.VeryGapped
   }
 }
-
-const dataDiscrepanciesFromData = (
-  dataDiscrepancies: DataDiscrepancyData[]
-): DataDiscrepancy[] =>
-  dataDiscrepancies.map(dataDiscrepancy => ({
-    attribute: dataDiscrepancy.attribute,
-    sources: dataDiscrepancy.sources,
-  }))
 
 const vehicleScheduledLocationFromData = (
   vehicleScheduledLocationData: VehicleScheduledLocationData

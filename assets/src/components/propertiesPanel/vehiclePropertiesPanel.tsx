@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import useInterval from "../../hooks/useInterval"
 import { formattedRunNumber } from "../../models/shuttle"
 import { isShuttle, shouldShowHeadwayDiagram } from "../../models/vehicle"
-import { DataDiscrepancy, Vehicle } from "../../realtime"
+import { Vehicle } from "../../realtime"
 import { Route } from "../../schedule"
 import Map from "../map"
 import CloseButton from "./closeButton"
@@ -85,50 +85,6 @@ const Location = ({ vehicle }: { vehicle: Vehicle }) => {
   )
 }
 
-const Discrepancy = ({
-  dataDiscrepancy: { attribute, sources },
-}: {
-  dataDiscrepancy: DataDiscrepancy
-}) => (
-  <dl className="m-vehicle-properties-panel__data-discrepancy">
-    <dt>{attribute}</dt>
-    <dd>
-      <ul>
-        {sources.map(({ id, value }) => (
-          <li key={`${attribute}-${id}`}>
-            <span className="m-vehicle-properties-panel__data-discrepancy-source-id">
-              {id}
-            </span>
-            <span className="m-vehicle-properties-panel__data-discrepancy-source-value">
-              {value}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </dd>
-  </dl>
-)
-
-const DataDiscrepancies = ({
-  vehicle: { dataDiscrepancies },
-}: {
-  vehicle: Vehicle
-}) => (
-  <ul className="m-vehicle-properties-panel__data-discrepancies">
-    {dataDiscrepancies.map(dataDiscrepancy => (
-      <li key={dataDiscrepancy.attribute}>
-        <Discrepancy dataDiscrepancy={dataDiscrepancy} />
-      </li>
-    ))}
-  </ul>
-)
-
-const inDebugMode = (): boolean =>
-  !!new URL(document.location.href).searchParams.get("debug")
-
-const shouldShowDataDiscrepancies = ({ dataDiscrepancies }: Vehicle): boolean =>
-  inDebugMode() && dataDiscrepancies.length > 0
-
 const VehiclePropertiesPanel = ({ selectedVehicle, route }: Props) => (
   <div className="m-vehicle-properties-panel">
     <Header vehicle={selectedVehicle} route={route} />
@@ -140,10 +96,6 @@ const VehiclePropertiesPanel = ({ selectedVehicle, route }: Props) => (
     <PropertiesList properties={properties(selectedVehicle)} />
 
     <Location vehicle={selectedVehicle} />
-
-    {shouldShowDataDiscrepancies(selectedVehicle) && (
-      <DataDiscrepancies vehicle={selectedVehicle} />
-    )}
 
     <CloseButton />
   </div>

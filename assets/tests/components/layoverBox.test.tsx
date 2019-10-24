@@ -32,7 +32,6 @@ const vehicles: Vehicle[] = [
     scheduledHeadwaySecs: 120,
     isLayingOver: true,
     layoverDepartureTime: 1000002,
-    dataDiscrepancies: [],
     stopStatus: {
       stopId: "57",
       stopName: "57",
@@ -68,7 +67,6 @@ const vehicles: Vehicle[] = [
     scheduledHeadwaySecs: 120,
     isLayingOver: true,
     layoverDepartureTime: 1000001,
-    dataDiscrepancies: [],
     stopStatus: {
       stopId: "59",
       stopName: "59",

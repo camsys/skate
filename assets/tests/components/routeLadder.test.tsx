@@ -40,7 +40,6 @@ const vehicles: Vehicle[] = [
     scheduledHeadwaySecs: 120,
     isLayingOver: false,
     layoverDepartureTime: null,
-    dataDiscrepancies: [],
     stopStatus: {
       stopId: "57",
       stopName: "57",
@@ -76,7 +75,6 @@ const vehicles: Vehicle[] = [
     scheduledHeadwaySecs: 120,
     isLayingOver: false,
     layoverDepartureTime: null,
-    dataDiscrepancies: [],
     stopStatus: {
       stopId: "59",
       stopName: "59",
@@ -342,7 +340,6 @@ describe("routeLadder", () => {
       scheduledHeadwaySecs: 120,
       isLayingOver: false,
       layoverDepartureTime: null,
-      dataDiscrepancies: [],
       stopStatus: {
         stopId: "stop",
         stopName: "stop",

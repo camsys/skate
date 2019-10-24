@@ -10,16 +10,6 @@ import {
 
 import { HeadwaySpacing } from "./models/vehicleStatus"
 
-export interface DataDiscrepancy {
-  attribute: string
-  sources: DataDiscrepancySource[]
-}
-
-interface DataDiscrepancySource {
-  id: SourceId
-  value: string | null
-}
-
 export interface Ghost {
   id: VehicleId
   directionId: DirectionId
@@ -60,7 +50,6 @@ export interface Vehicle {
   scheduledHeadwaySecs: number
   isLayingOver: boolean
   layoverDepartureTime: number | null
-  dataDiscrepancies: DataDiscrepancy[]
   stopStatus: VehicleStopStatus
   timepointStatus: VehicleTimepointStatus | null
   scheduledLocation: VehicleScheduledLocation | null
