@@ -42,25 +42,9 @@ describe("PropertiesPanel", () => {
       scheduleAdherenceSecs: 0,
       scheduleAdherenceString: "0.0 sec (ontime)",
       scheduledHeadwaySecs: 120,
-      isOffCourse: false,
       isLayingOver: false,
       layoverDepartureTime: null,
-      blockIsActive: false,
-      dataDiscrepancies: [
-        {
-          attribute: "trip_id",
-          sources: [
-            {
-              id: "swiftly",
-              value: "swiftly-trip-id",
-            },
-            {
-              id: "busloc",
-              value: "busloc-trip-id",
-            },
-          ],
-        },
-      ],
+      dataDiscrepancies: [],
       stopStatus: {
         stopId: "s1",
         stopName: "Stop Name",

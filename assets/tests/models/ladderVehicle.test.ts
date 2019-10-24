@@ -34,7 +34,6 @@ describe("putIntoLanes", () => {
     const original = [
       {
         headwaySpacing,
-        isOffCourse: false,
         label: "v1-label",
         runId: "v1-run",
         status,
@@ -46,7 +45,6 @@ describe("putIntoLanes", () => {
       },
       {
         headwaySpacing,
-        isOffCourse: false,
         label: "v2-label",
         runId: "v2-run",
         status,
@@ -58,7 +56,6 @@ describe("putIntoLanes", () => {
       },
       {
         headwaySpacing,
-        isOffCourse: false,
         label: "v3-label",
         runId: "v3-run",
         status,
@@ -70,7 +67,6 @@ describe("putIntoLanes", () => {
       },
       {
         headwaySpacing,
-        isOffCourse: false,
         label: "v4-label",
         runId: "v4-run",
         status,

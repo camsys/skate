@@ -35,38 +35,9 @@ describe("isAVehicle", () => {
       scheduleAdherenceSecs: 0,
       scheduleAdherenceString: "0.0 sec (ontime)",
       scheduledHeadwaySecs: 120,
-      isOffCourse: false,
       isLayingOver: false,
       layoverDepartureTime: null,
-      blockIsActive: true,
-      dataDiscrepancies: [
-        {
-          attribute: "trip_id",
-          sources: [
-            {
-              id: "swiftly",
-              value: "swiftly-trip-id",
-            },
-            {
-              id: "busloc",
-              value: "busloc-trip-id",
-            },
-          ],
-        },
-        {
-          attribute: "route_id",
-          sources: [
-            {
-              id: "swiftly",
-              value: null,
-            },
-            {
-              id: "busloc",
-              value: "busloc-route-id",
-            },
-          ],
-        },
-      ],
+      dataDiscrepancies: [],
       stopStatus: {
         stopId: "s1",
         stopName: "Stop Name",

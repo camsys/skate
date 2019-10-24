@@ -39,10 +39,8 @@ describe("ladder", () => {
         scheduleAdherenceSecs: 0,
         scheduleAdherenceString: "0.0 sec (ontime)",
         scheduledHeadwaySecs: 120,
-        isOffCourse: false,
         isLayingOver: false,
         layoverDepartureTime: null,
-        blockIsActive: true,
         dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
@@ -77,10 +75,8 @@ describe("ladder", () => {
         scheduleAdherenceSecs: 0,
         scheduleAdherenceString: "0.0 sec (ontime)",
         scheduledHeadwaySecs: 120,
-        isOffCourse: false,
         isLayingOver: false,
         layoverDepartureTime: null,
-        blockIsActive: true,
         dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
@@ -121,10 +117,8 @@ describe("ladder", () => {
         scheduleAdherenceSecs: 0,
         scheduleAdherenceString: "0.0 sec (ontime)",
         scheduledHeadwaySecs: 120,
-        isOffCourse: false,
         isLayingOver: false,
         layoverDepartureTime: null,
-        blockIsActive: true,
         dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
@@ -187,109 +181,6 @@ describe("ladder", () => {
     expect(tree).toMatchSnapshot()
   })
 
-  test("filters out vehicles whose block is not active", () => {
-    const timepoints = ["t0", "t1", "t2"]
-    const vehicles: Vehicle[] = [
-      {
-        id: "upward",
-        label: "upward",
-        runId: "run-1",
-        timestamp: 0,
-        latitude: 0,
-        longitude: 0,
-        directionId: 0,
-        routeId: "route",
-        tripId: "trip",
-        headsign: null,
-        viaVariant: null,
-        operatorId: "op1",
-        operatorName: "SMITH",
-        bearing: 33,
-        blockId: "block-1",
-        headwaySecs: 859.1,
-        headwaySpacing: HeadwaySpacing.Ok,
-        previousVehicleId: "v2",
-        scheduleAdherenceSecs: 0,
-        scheduleAdherenceString: "0.0 sec (ontime)",
-        scheduledHeadwaySecs: 120,
-        isOffCourse: false,
-        isLayingOver: false,
-        layoverDepartureTime: null,
-        blockIsActive: false,
-        dataDiscrepancies: [],
-        stopStatus: {
-          stopId: "stop",
-          stopName: "stop",
-        },
-        timepointStatus: {
-          fractionUntilTimepoint: 0.5,
-          timepointId: "t1",
-        },
-        scheduledLocation: null,
-        isOnRoute: true,
-      },
-      {
-        id: "downward",
-        label: "downward",
-        runId: "run-2",
-        timestamp: 0,
-        latitude: 0,
-        longitude: 0,
-        directionId: 1,
-        routeId: "route",
-        tripId: "trip",
-        headsign: null,
-        viaVariant: null,
-        operatorId: "op2",
-        operatorName: "JONES",
-        bearing: 33,
-        blockId: "block-1",
-        headwaySecs: 859.1,
-        headwaySpacing: HeadwaySpacing.Ok,
-        previousVehicleId: "v2",
-        scheduleAdherenceSecs: 0,
-        scheduleAdherenceString: "0.0 sec (ontime)",
-        scheduledHeadwaySecs: 120,
-        isOffCourse: false,
-        isLayingOver: false,
-        layoverDepartureTime: null,
-        blockIsActive: true,
-        dataDiscrepancies: [],
-        stopStatus: {
-          stopId: "stop",
-          stopName: "stop",
-        },
-        timepointStatus: {
-          fractionUntilTimepoint: 0.75,
-          timepointId: "t2",
-        },
-        scheduledLocation: {
-          directionId: 0,
-          timepointStatus: {
-            timepointId: "t2",
-            fractionUntilTimepoint: 0.75,
-          },
-        },
-        isOnRoute: true,
-      },
-    ]
-    const ladderDirection = LadderDirection.ZeroToOne
-
-    const tree = renderer
-      .create(
-        <Ladder
-          timepoints={timepoints}
-          vehicles={vehicles}
-          ghosts={[]}
-          ladderDirection={ladderDirection}
-          selectedVehicleId={undefined}
-        />
-      )
-      .toJSON()
-
-    expect(tree).toMatchSnapshot()
-  })
-
   test("shows schedule line in the other direction", () => {
     const timepoints = ["t0", "t1", "t2"]
     const vehicles: Vehicle[] = [
@@ -315,10 +206,8 @@ describe("ladder", () => {
         scheduleAdherenceSecs: 0,
         scheduleAdherenceString: "0.0 sec (ontime)",
         scheduledHeadwaySecs: 120,
-        isOffCourse: false,
         isLayingOver: false,
         layoverDepartureTime: null,
-        blockIsActive: true,
         dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
@@ -379,10 +268,8 @@ describe("ladder", () => {
         scheduleAdherenceSecs: 0,
         scheduleAdherenceString: "0.0 sec (ontime)",
         scheduledHeadwaySecs: 120,
-        isOffCourse: false,
         isLayingOver: false,
         layoverDepartureTime: null,
-        blockIsActive: true,
         dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
@@ -417,10 +304,8 @@ describe("ladder", () => {
         scheduleAdherenceSecs: 0,
         scheduleAdherenceString: "0.0 sec (ontime)",
         scheduledHeadwaySecs: 120,
-        isOffCourse: false,
         isLayingOver: false,
         layoverDepartureTime: null,
-        blockIsActive: true,
         dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
@@ -483,10 +368,8 @@ describe("ladder", () => {
       scheduleAdherenceSecs: 0,
       scheduleAdherenceString: "0.0 sec (ontime)",
       scheduledHeadwaySecs: 120,
-      isOffCourse: false,
       isLayingOver: false,
       layoverDepartureTime: null,
-      blockIsActive: true,
       dataDiscrepancies: [],
       stopStatus: {
         stopId: "stop",
@@ -543,10 +426,8 @@ describe("ladder", () => {
         scheduleAdherenceSecs: 0,
         scheduleAdherenceString: "0.0 sec (ontime)",
         scheduledHeadwaySecs: 120,
-        isOffCourse: false,
         isLayingOver: false,
         layoverDepartureTime: null,
-        blockIsActive: true,
         dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
@@ -602,10 +483,8 @@ describe("ladder", () => {
         scheduleAdherenceSecs: 0,
         scheduleAdherenceString: "0.0 sec (ontime)",
         scheduledHeadwaySecs: 120,
-        isOffCourse: false,
         isLayingOver: false,
         layoverDepartureTime: null,
-        blockIsActive: true,
         dataDiscrepancies: [],
         stopStatus: {
           stopId: "stop",
@@ -632,81 +511,6 @@ describe("ladder", () => {
         <Ladder
           timepoints={timepoints}
           vehicles={vehicles}
-          ghosts={[]}
-          ladderDirection={ladderDirection}
-          selectedVehicleId={undefined}
-        />
-      )
-      .toJSON()
-
-    expect(tree).toMatchSnapshot()
-  })
-
-  test("renders an off-course vehicle", () => {
-    const vehicle: Vehicle = {
-      id: "y1439",
-      label: "1439",
-      runId: "run-1",
-      timestamp: 1562777122,
-      latitude: 42.38954,
-      longitude: -71.07405,
-      directionId: 0,
-      routeId: "71",
-      tripId: "40725309",
-      headsign: "Harvard",
-      viaVariant: "D",
-      operatorId: "op1",
-      operatorName: "SMITH",
-      bearing: 0,
-      blockId: "T71-17",
-      headwaySecs: 859.1,
-      headwaySpacing: HeadwaySpacing.Ok,
-      previousVehicleId: "v2",
-      scheduleAdherenceSecs: 0,
-      scheduleAdherenceString: "0.0 sec (ontime)",
-      scheduledHeadwaySecs: 120,
-      isOffCourse: true,
-      isLayingOver: false,
-      layoverDepartureTime: null,
-      blockIsActive: true,
-      dataDiscrepancies: [
-        {
-          attribute: "trip_id",
-          sources: [
-            {
-              id: "busloc",
-              value: "40725309",
-            },
-            {
-              id: "swiftly",
-              value: null,
-            },
-          ],
-        },
-      ],
-      stopStatus: {
-        stopId: "stop",
-        stopName: "stop",
-      },
-      timepointStatus: null,
-      scheduledLocation: {
-        directionId: 0,
-        timepointStatus: {
-          timepointId: "mtsty",
-          fractionUntilTimepoint: 0,
-        },
-      },
-      isOnRoute: true,
-    }
-
-    const timepoints = ["t0", "t1", "t2"]
-    const ladderDirection = LadderDirection.ZeroToOne
-
-    const tree = renderer
-      .create(
-        <Ladder
-          timepoints={timepoints}
-          vehicles={[vehicle]}
           ghosts={[]}
           ladderDirection={ladderDirection}
           selectedVehicleId={undefined}

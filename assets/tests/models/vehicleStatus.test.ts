@@ -40,32 +40,11 @@ describe("onTimeStatus", () => {
 })
 
 describe("drawnStatus", () => {
-  test("returns 'off-course' if isOffCourse", () => {
-    mockHeadwaysOff()
-    const vehicle: Vehicle = {
-      headwaySpacing: null,
-      scheduleAdherenceSecs: 0,
-      isOffCourse: true,
-    } as Vehicle
-    expect(drawnStatus(vehicle)).toEqual("off-course")
-  })
-
-  test("returns 'off-course' in headways mode", () => {
-    mockHeadwaysOn()
-    const vehicle: Vehicle = {
-      headwaySpacing: HeadwaySpacing.Bunched,
-      scheduleAdherenceSecs: 0,
-      isOffCourse: true,
-    } as Vehicle
-    expect(drawnStatus(vehicle)).toEqual("off-course")
-  })
-
   test("return scheduled status", () => {
     mockHeadwaysOff()
     const vehicle: Vehicle = {
       headwaySpacing: null,
       scheduleAdherenceSecs: 500,
-      isOffCourse: false,
     } as Vehicle
     expect(drawnStatus(vehicle)).toEqual("late")
   })
@@ -75,7 +54,6 @@ describe("drawnStatus", () => {
     const vehicle: Vehicle = {
       headwaySpacing: HeadwaySpacing.Bunched,
       scheduleAdherenceSecs: 500,
-      isOffCourse: false,
     } as Vehicle
     expect(drawnStatus(vehicle)).toEqual("late")
   })
@@ -85,7 +63,6 @@ describe("drawnStatus", () => {
     const vehicle: Vehicle = {
       headwaySpacing: HeadwaySpacing.Bunched,
       scheduleAdherenceSecs: 500,
-      isOffCourse: false,
     } as Vehicle
     expect(drawnStatus(vehicle)).toEqual("plain")
   })
@@ -95,21 +72,12 @@ describe("drawnStatus", () => {
     const vehicle: Vehicle = {
       headwaySpacing: null,
       scheduleAdherenceSecs: 500,
-      isOffCourse: false,
     } as Vehicle
     expect(drawnStatus(vehicle)).toEqual("late")
   })
 })
 
 describe("humanReadableScheduleAdherence", () => {
-  test("returns invalid for an off course vehicle", () => {
-    const vehicle: Vehicle = {
-      scheduleAdherenceSecs: 0,
-      isOffCourse: true,
-    } as Vehicle
-    expect(humanReadableScheduleAdherence(vehicle)).toEqual("Invalid")
-  })
-
   test("returns on time status for an on course vehicle", () => {
     const onTime: Vehicle = {
       scheduleAdherenceSecs: 5,

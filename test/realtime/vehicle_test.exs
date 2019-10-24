@@ -2,7 +2,7 @@ defmodule Realtime.VehicleTest do
   use ExUnit.Case
   import Test.Support.Helpers
 
-  alias Concentrate.{DataDiscrepancy, VehiclePosition}
+  alias Concentrate.VehiclePosition
   alias Gtfs.{StopTime, Trip}
   alias Realtime.Vehicle
 
@@ -30,22 +30,7 @@ defmodule Realtime.VehicleTest do
     direction_id: 1,
     route_id: "28",
     sources: MapSet.new(["swiftly", "busloc"]),
-    data_discrepancies: [
-      %DataDiscrepancy{
-        attribute: :trip_id,
-        sources: [
-          %{id: "swiftly", value: "swiftly-trip-id"},
-          %{id: "busloc", value: "busloc-trip-id"}
-        ]
-      },
-      %DataDiscrepancy{
-        attribute: :route_id,
-        sources: [
-          %{id: "swiftly", value: "swiftly-route-id"},
-          %{id: "busloc", value: "busloc-route-id"}
-        ]
-      }
-    ]
+    data_discrepancies: []
   }
 
   describe "from_vehicle_position" do
@@ -112,27 +97,10 @@ defmodule Realtime.VehicleTest do
         run_id: "138-1038",
         headway_secs: 900,
         headway_spacing: :ok,
-        is_off_course: false,
         is_laying_over: false,
         layover_departure_time: nil,
-        block_is_active: true,
         sources: MapSet.new(["swiftly", "busloc"]),
-        data_discrepancies: [
-          %DataDiscrepancy{
-            attribute: :trip_id,
-            sources: [
-              %{id: "swiftly", value: "swiftly-trip-id"},
-              %{id: "busloc", value: "busloc-trip-id"}
-            ]
-          },
-          %DataDiscrepancy{
-            attribute: :route_id,
-            sources: [
-              %{id: "swiftly", value: "swiftly-route-id"},
-              %{id: "busloc", value: "busloc-route-id"}
-            ]
-          }
-        ],
+        data_discrepancies: [],
         stop_status: %{
           stop_id: "392",
           stop_name: "392"
@@ -159,133 +127,6 @@ defmodule Realtime.VehicleTest do
       result = Vehicle.from_vehicle_position(vehicle_position)
       assert result.headway_secs == nil
       assert result.headway_spacing == nil
-    end
-  end
-
-  describe "off_course?/2" do
-    test "returns true if there is a trip_id data discrepancy where swiftly is null and busloc has a value" do
-      data_discrepancies = [
-        %DataDiscrepancy{
-          attribute: :trip_id,
-          sources: [
-            %{id: "swiftly", value: nil},
-            %{id: "busloc", value: "busloc-trip-id"}
-          ]
-        }
-      ]
-
-      assert Vehicle.off_course?(data_discrepancies)
-    end
-
-    test "returns false if the swiftly defined a value" do
-      data_discrepancies = [
-        %DataDiscrepancy{
-          attribute: "trip_id",
-          sources: [
-            %{
-              id: "swiftly",
-              value: "swiftly-trip-id"
-            },
-            %{
-              id: "busloc",
-              value: "busloc-trip-id"
-            }
-          ]
-        }
-      ]
-
-      refute Vehicle.off_course?(data_discrepancies)
-    end
-
-    test "returns false if there isn't a trip_id data discrepancy" do
-      data_discrepancies = [
-        %DataDiscrepancy{
-          attribute: "route_id",
-          sources: [
-            %{
-              id: "swiftly",
-              value: "swiftly-route-id"
-            },
-            %{
-              id: "busloc",
-              value: "busloc-route-id"
-            }
-          ]
-        }
-      ]
-
-      refute Vehicle.off_course?(data_discrepancies)
-    end
-  end
-
-  describe "active_block?" do
-    setup do
-      block = [
-        %Trip{
-          id: "1",
-          route_id: "28",
-          service_id: "service",
-          headsign: "headsign",
-          direction_id: 1,
-          block_id: "S28-2",
-          route_pattern_id: "28-_-1",
-          shape_id: "shape1",
-          stop_times: [
-            %StopTime{
-              stop_id: "6553",
-              time: Util.Time.parse_hhmmss("11:01:00"),
-              timepoint_id: "tp1"
-            },
-            %StopTime{
-              stop_id: "6555",
-              time: Util.Time.parse_hhmmss("11:59:00"),
-              timepoint_id: "tp2"
-            }
-          ]
-        }
-      ]
-
-      {:ok, block: block}
-    end
-
-    test "returns true if the vehicle is not off course", %{block: block} do
-      is_off_course = false
-      # 2019-01-01 12:00:00 EST
-      now = 1_546_362_000
-
-      assert Vehicle.active_block?(is_off_course, block, now)
-    end
-
-    test "returns false if the block ended more than an hour ago", %{block: block} do
-      is_off_course = true
-      # 2019-01-01 13:00:00 EST
-      now = 1_546_365_600
-
-      refute Vehicle.active_block?(is_off_course, block, now)
-    end
-
-    test "returns true if the block ended less than an hour ago", %{block: block} do
-      is_off_course = true
-      # 2019-01-01 12:30:00 EST
-      now = 1_546_363_800
-
-      assert Vehicle.active_block?(is_off_course, block, now)
-    end
-
-    test "returns true if the block ends in the future", %{block: block} do
-      is_off_course = true
-      # 2019-01-01 11:30:00 EST
-      now = 1_546_358_400
-
-      assert Vehicle.active_block?(is_off_course, block, now)
-    end
-
-    test "returns false if the block is nil" do
-      is_off_course = true
-      # 2019-01-01 12:30:00 EST
-      now = 1_546_363_800
-
-      refute Vehicle.active_block?(is_off_course, nil, now)
     end
   end
 
@@ -349,27 +190,10 @@ defmodule Realtime.VehicleTest do
         run_id: "138-1038",
         headway_secs: 600,
         headway_spacing: :ok,
-        is_off_course: false,
         is_laying_over: false,
         layover_departure_time: nil,
-        block_is_active: true,
         sources: MapSet.new(["swiftly", "busloc"]),
-        data_discrepancies: [
-          %DataDiscrepancy{
-            attribute: :trip_id,
-            sources: [
-              %{id: "swiftly", value: "swiftly-trip-id"},
-              %{id: "busloc", value: "busloc-trip-id"}
-            ]
-          },
-          %DataDiscrepancy{
-            attribute: :route_id,
-            sources: [
-              %{id: "swiftly", value: nil},
-              %{id: "busloc", value: "busloc-route-id"}
-            ]
-          }
-        ],
+        data_discrepancies: [],
         stop_status: %{
           stop_id: "392",
           stop_name: "392"
@@ -386,7 +210,7 @@ defmodule Realtime.VehicleTest do
       assert encoded_string =~ "\"route_id\":\"28\""
 
       assert encoded_string =~
-               "\"data_discrepancies\":[{\"attribute\":\"trip_id\",\"sources\":[{\"id\":\"swiftly\",\"value\":\"swiftly-trip-id\"},{\"id\":\"busloc\",\"value\":\"busloc-trip-id\"}]},{\"attribute\":\"route_id\",\"sources\":[{\"id\":\"swiftly\",\"value\":null},{\"id\":\"busloc\",\"value\":\"busloc-route-id\"}]}]"
+               "\"data_discrepancies\":[]"
     end
   end
 end

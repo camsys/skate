@@ -34,9 +34,7 @@ export const onTimeStatus = (scheduleAdherenceSecs: number): OnTimeStatus => {
 }
 
 export const drawnStatus = (vehicle: Vehicle): DrawnStatus => {
-  if (vehicle.isOffCourse) {
-    return "off-course"
-  } else if (
+  if (
     isShuttle(vehicle) ||
     (featureIsEnabled("headway_ladder_colors") &&
       vehicle.headwaySpacing !== null)
@@ -49,9 +47,7 @@ export const drawnStatus = (vehicle: Vehicle): DrawnStatus => {
 }
 
 export const humanReadableScheduleAdherence = (vehicle: Vehicle): string =>
-  vehicle.isOffCourse
-    ? "Invalid"
-    : humanReadableOnTimeStatus(onTimeStatus(vehicle.scheduleAdherenceSecs))
+  humanReadableOnTimeStatus(onTimeStatus(vehicle.scheduleAdherenceSecs))
 
 const humanReadableOnTimeStatus = (status: OnTimeStatus): string => {
   switch (status) {

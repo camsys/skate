@@ -38,10 +38,8 @@ const vehicles: Vehicle[] = [
     scheduleAdherenceSecs: 0,
     scheduleAdherenceString: "0.0 sec (ontime)",
     scheduledHeadwaySecs: 120,
-    isOffCourse: false,
     isLayingOver: false,
     layoverDepartureTime: null,
-    blockIsActive: true,
     dataDiscrepancies: [],
     stopStatus: {
       stopId: "57",
@@ -76,10 +74,8 @@ const vehicles: Vehicle[] = [
     scheduleAdherenceSecs: 0,
     scheduleAdherenceString: "0.0 sec (ontime)",
     scheduledHeadwaySecs: 120,
-    isOffCourse: false,
     isLayingOver: false,
     layoverDepartureTime: null,
-    blockIsActive: true,
     dataDiscrepancies: [],
     stopStatus: {
       stopId: "59",
@@ -344,10 +340,8 @@ describe("routeLadder", () => {
       scheduleAdherenceSecs: 0,
       scheduleAdherenceString: "0.0 sec (ontime)",
       scheduledHeadwaySecs: 120,
-      isOffCourse: false,
       isLayingOver: false,
       layoverDepartureTime: null,
-      blockIsActive: true,
       dataDiscrepancies: [],
       stopStatus: {
         stopId: "stop",

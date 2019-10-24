@@ -57,17 +57,13 @@ const Location = ({ vehicle }: { vehicle: Vehicle }) => {
   const secondsAgo = (epocTime: number): string =>
     `${epocNowInSeconds - epocTime}s ago`
 
-  const { isOffCourse, latitude, longitude, stopStatus, timestamp } = vehicle
+  const { latitude, longitude, stopStatus, timestamp } = vehicle
 
   return (
     <div className="m-vehicle-properties-panel__location">
       <div className="m-properties-panel__property-label">Next Stop</div>
       <div className="m-properties-panel__property-value">
-        {isOffCourse || isShuttle(vehicle) ? (
-          <NotAvailable />
-        ) : (
-          <>{stopStatus.stopName}</>
-        )}
+        {isShuttle(vehicle) ? <NotAvailable /> : <>{stopStatus.stopName}</>}
       </div>
       <div className="m-properties-panel__property-label">Last GPS Ping</div>
       <div className="m-properties-panel__property-value">

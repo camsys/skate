@@ -50,7 +50,7 @@ const scheduleAdherenceLabelString = ({
 
 const ScheduleAdherenceLabel = ({ vehicle }: { vehicle: Vehicle }) => (
   <div className="m-properties-panel__schedule-adherence-label">
-    {vehicle.isOffCourse ? "" : scheduleAdherenceLabelString(vehicle)}
+    {scheduleAdherenceLabelString(vehicle)}
   </div>
 )
 

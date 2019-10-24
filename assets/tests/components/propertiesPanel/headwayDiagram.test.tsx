@@ -29,10 +29,8 @@ const vehicle: Vehicle = {
   scheduleAdherenceSecs: -305,
   scheduleAdherenceString: "-5.1 minutes (early)",
   scheduledHeadwaySecs: 480,
-  isOffCourse: false,
   isLayingOver: false,
   layoverDepartureTime: null,
-  blockIsActive: true,
   dataDiscrepancies: [],
   stopStatus: {
     stopId: "77",
@@ -97,10 +95,8 @@ describe("HeadwayDiagram", () => {
       scheduleAdherenceSecs: 408,
       scheduleAdherenceString: "6.8 minutes (late)",
       scheduledHeadwaySecs: 540,
-      isOffCourse: false,
       isLayingOver: false,
       layoverDepartureTime: null,
-      blockIsActive: true,
       dataDiscrepancies: [],
       stopStatus: {
         stopId: "72",
@@ -147,10 +143,8 @@ describe("HeadwayDiagram", () => {
       scheduleAdherenceSecs: 313,
       scheduleAdherenceString: "5.2 minutes (late)",
       scheduledHeadwaySecs: 600,
-      isOffCourse: false,
       isLayingOver: false,
       layoverDepartureTime: null,
-      blockIsActive: true,
       dataDiscrepancies: [],
       stopStatus: {
         stopId: "11413",

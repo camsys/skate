@@ -1,7 +1,7 @@
 defmodule Concentrate.VehiclePositionTest do
   use ExUnit.Case, async: true
   import Concentrate.VehiclePosition
-  alias Concentrate.{DataDiscrepancy, Mergeable}
+  alias Concentrate.Mergeable
 
   describe "Concentrate.Mergeable" do
     test "merge/2 takes the latest of the two positions and notes discrepancies" do
@@ -10,8 +10,6 @@ defmodule Concentrate.VehiclePositionTest do
           last_updated: 1,
           latitude: 1,
           longitude: 1,
-          trip_id: "trip",
-          route_id: "route",
           sources: MapSet.new(["first"])
         )
 
@@ -22,18 +20,8 @@ defmodule Concentrate.VehiclePositionTest do
           last_updated: 2,
           latitude: 2,
           longitude: 2,
-          trip_id: "trip",
-          route_id: "route",
           sources: MapSet.new(["first", "second"]),
-          data_discrepancies: [
-            %DataDiscrepancy{
-              attribute: :trip_id,
-              sources: [
-                %{id: "first", value: "trip"},
-                %{id: "second", value: nil}
-              ]
-            }
-          ]
+          data_discrepancies: []
         )
 
       assert Mergeable.merge(first, second) == expected
@@ -52,7 +40,7 @@ defmodule Concentrate.VehiclePositionTest do
       assert Mergeable.merge(first, second) == second
     end
 
-    test "merge/2 prioritizes the swiftly trip and route values if there is one" do
+    test "merge/2 takes the swiftly trip and route values if there is one" do
       swiftly =
         new(
           last_updated: 1,
@@ -91,15 +79,7 @@ defmodule Concentrate.VehiclePositionTest do
           trip_id: "swiftly_trip",
           route_id: "swiftly_route",
           sources: MapSet.new(["busloc", "swiftly"]),
-          data_discrepancies: [
-            %DataDiscrepancy{
-              attribute: :trip_id,
-              sources: [
-                %{id: "swiftly", value: "swiftly_trip"},
-                %{id: "busloc", value: "busloc_trip"}
-              ]
-            }
-          ]
+          data_discrepancies: []
         )
 
       expected_later =
@@ -110,15 +90,7 @@ defmodule Concentrate.VehiclePositionTest do
           trip_id: "swiftly_trip",
           route_id: "swiftly_route",
           sources: MapSet.new(["busloc", "swiftly"]),
-          data_discrepancies: [
-            %DataDiscrepancy{
-              attribute: :trip_id,
-              sources: [
-                %{id: "busloc", value: "busloc_trip"},
-                %{id: "swiftly", value: "swiftly_trip"}
-              ]
-            }
-          ]
+          data_discrepancies: []
         )
 
       assert Mergeable.merge(swiftly, non_swiftly) == expected
@@ -127,7 +99,7 @@ defmodule Concentrate.VehiclePositionTest do
       assert Mergeable.merge(non_swiftly, swiftly_later) == expected_later
     end
 
-    test "merge/2 takes the other trip and route values if the swiftly values are nil" do
+    test "merge/2 doesn't take the other trip and route values if the swiftly values are nil" do
       swiftly =
         new(
           last_updated: 1,
@@ -153,18 +125,10 @@ defmodule Concentrate.VehiclePositionTest do
           last_updated: 2,
           latitude: 2,
           longitude: 2,
-          trip_id: "busloc_trip",
-          route_id: "busloc_route",
+          trip_id: nil,
+          route_id: nil,
           sources: MapSet.new(["busloc", "swiftly"]),
-          data_discrepancies: [
-            %DataDiscrepancy{
-              attribute: :trip_id,
-              sources: [
-                %{id: "swiftly", value: nil},
-                %{id: "busloc", value: "busloc_trip"}
-              ]
-            }
-          ]
+          data_discrepancies: []
         )
 
       assert Mergeable.merge(swiftly, non_swiftly) == expected
@@ -179,7 +143,7 @@ defmodule Concentrate.VehiclePositionTest do
           longitude: 1,
           trip_id: "trip",
           route_id: "route",
-          sources: MapSet.new(["first"])
+          sources: MapSet.new(["swiftly"])
         )
 
       second =
@@ -199,7 +163,7 @@ defmodule Concentrate.VehiclePositionTest do
           longitude: 2,
           trip_id: "trip",
           route_id: "route",
-          sources: MapSet.new(["first", "second"]),
+          sources: MapSet.new(["swiftly", "second"]),
           data_discrepancies: []
         )
 

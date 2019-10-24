@@ -73,10 +73,8 @@ const Ladder = ({
     timepointSpacingY
   )
 
-  const vehiclesWithAnActiveBlock = vehicles.filter(withAnActiveBlock)
-
   const { ladderVehicles, widthOfLanes } = ladderVehiclesFromVehicles(
-    vehiclesWithAnActiveBlock,
+    vehicles,
     ghosts,
     ladderDirection,
     timepointStatusY
@@ -253,8 +251,6 @@ const timepointStatusYFromTimepoints = (
   }
   return 0
 }
-
-const withAnActiveBlock = (vehicle: Vehicle): boolean => vehicle.blockIsActive
 
 const orientationMatchingVehicle = (
   vehicleDirection: VehicleDirection

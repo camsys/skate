@@ -30,10 +30,8 @@ const vehicles: Vehicle[] = [
     scheduleAdherenceSecs: 0,
     scheduleAdherenceString: "0.0 sec (ontime)",
     scheduledHeadwaySecs: 120,
-    isOffCourse: false,
     isLayingOver: true,
     layoverDepartureTime: 1000002,
-    blockIsActive: true,
     dataDiscrepancies: [],
     stopStatus: {
       stopId: "57",
@@ -68,10 +66,8 @@ const vehicles: Vehicle[] = [
     scheduleAdherenceSecs: 0,
     scheduleAdherenceString: "0.0 sec (ontime)",
     scheduledHeadwaySecs: 120,
-    isOffCourse: false,
     isLayingOver: true,
     layoverDepartureTime: 1000001,
-    blockIsActive: true,
     dataDiscrepancies: [],
     stopStatus: {
       stopId: "59",

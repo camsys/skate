@@ -144,14 +144,7 @@ const vehicleOnLadder = (
   ladderDirection: LadderDirection,
   timepointStatusYFunc: TimepointStatusYFunc
 ): VehicleOnLadder => {
-  const {
-    id: vehicleId,
-    headwaySpacing,
-    label,
-    runId,
-    isOffCourse,
-    viaVariant,
-  } = vehicle
+  const { id: vehicleId, headwaySpacing, label, runId, viaVariant } = vehicle
 
   const { scheduledY, scheduledVehicleDirection } = scheduledToBe(
     vehicle,
@@ -159,23 +152,19 @@ const vehicleOnLadder = (
     timepointStatusYFunc
   )
 
-  const vehicleDirection: VehicleDirection =
-    isOffCourse && scheduledVehicleDirection !== undefined
-      ? scheduledVehicleDirection
-      : directionOnLadder(vehicle.directionId, ladderDirection)
+  const vehicleDirection: VehicleDirection = directionOnLadder(
+    vehicle.directionId,
+    ladderDirection
+  )
 
-  const y =
-    isOffCourse && scheduledY
-      ? scheduledY
-      : timepointStatusYFunc(vehicle.timepointStatus, vehicleDirection)
+  const y = timepointStatusYFunc(vehicle.timepointStatus, vehicleDirection)
 
   return {
     // tslint:disable-next-line:object-literal-sort-keys
     vehicleId,
-    headwaySpacing:
-      featureIsEnabled("headway_ladder_colors") && !isOffCourse
-        ? headwaySpacing
-        : null,
+    headwaySpacing: featureIsEnabled("headway_ladder_colors")
+      ? headwaySpacing
+      : null,
     label,
     runId,
     viaVariant,

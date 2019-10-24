@@ -41,10 +41,8 @@ const vehicle: Vehicle = {
   scheduleAdherenceSecs: 0,
   scheduleAdherenceString: "0.0 sec (ontime)",
   scheduledHeadwaySecs: 120,
-  isOffCourse: false,
   isLayingOver: false,
   layoverDepartureTime: null,
-  blockIsActive: false,
   dataDiscrepancies: [
     {
       attribute: "trip_id",
@@ -118,19 +116,6 @@ describe("VehiclePropertiesPanel", () => {
     }
     const tree = renderer
       .create(<VehiclePropertiesPanel selectedVehicle={earlyVehicle} />)
-      .toJSON()
-
-    expect(tree).toMatchSnapshot()
-  })
-
-  test("renders for an off-course vehicle", () => {
-    const offCourseVehicle: Vehicle = {
-      ...vehicle,
-      isOffCourse: true,
-    }
-
-    const tree = renderer
-      .create(<VehiclePropertiesPanel selectedVehicle={offCourseVehicle} />)
       .toJSON()
 
     expect(tree).toMatchSnapshot()

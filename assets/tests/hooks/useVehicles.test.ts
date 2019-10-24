@@ -45,41 +45,12 @@ describe("useVehicles", () => {
     {
       bearing: 33,
       block_id: "block-1",
-      block_is_active: true,
-      data_discrepancies: [
-        {
-          attribute: "trip_id",
-          sources: [
-            {
-              id: "swiftly",
-              value: "swiftly-trip-id",
-            },
-            {
-              id: "busloc",
-              value: "busloc-trip-id",
-            },
-          ],
-        },
-        {
-          attribute: "route_id",
-          sources: [
-            {
-              id: "swiftly",
-              value: null,
-            },
-            {
-              id: "busloc",
-              value: "busloc-route-id",
-            },
-          ],
-        },
-      ],
+      data_discrepancies: [],
       direction_id: 0,
       headsign: "Forest Hills",
       headway_secs: 859.1,
       headway_spacing: null,
       id: "v1",
-      is_off_course: false,
       is_laying_over: false,
       layover_departure_time: null,
       label: "v1-label",
@@ -137,38 +108,9 @@ describe("useVehicles", () => {
       scheduleAdherenceSecs: 0,
       scheduleAdherenceString: "0.0 sec (ontime)",
       scheduledHeadwaySecs: 120,
-      isOffCourse: false,
       isLayingOver: false,
       layoverDepartureTime: null,
-      blockIsActive: true,
-      dataDiscrepancies: [
-        {
-          attribute: "trip_id",
-          sources: [
-            {
-              id: "swiftly",
-              value: "swiftly-trip-id",
-            },
-            {
-              id: "busloc",
-              value: "busloc-trip-id",
-            },
-          ],
-        },
-        {
-          attribute: "route_id",
-          sources: [
-            {
-              id: "swiftly",
-              value: null,
-            },
-            {
-              id: "busloc",
-              value: "busloc-route-id",
-            },
-          ],
-        },
-      ],
+      dataDiscrepancies: [],
       stopStatus: {
         stopId: "s1",
         stopName: "Stop Name",

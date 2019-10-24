@@ -80,7 +80,7 @@ defmodule Concentrate.VehiclePosition do
       %{
         second
         | trip_id:
-            swiftly_priority(
+            only_swiftly(
               second.sources,
               second.trip_id,
               first.sources,
@@ -103,7 +103,7 @@ defmodule Concentrate.VehiclePosition do
           operator: first_value(second.operator, first.operator),
           direction_id: first_value(second.direction_id, first.direction_id),
           headsign:
-            swiftly_priority(
+            only_swiftly(
               second.sources,
               second.headsign,
               first.sources,
@@ -122,7 +122,7 @@ defmodule Concentrate.VehiclePosition do
               first.previous_vehicle_schedule_adherence_string
             ),
           route_id:
-            swiftly_priority(
+            only_swiftly(
               second.sources,
               second.route_id,
               first.sources,
@@ -137,14 +137,14 @@ defmodule Concentrate.VehiclePosition do
           sources: merge_sources(first, second),
           data_discrepancies: discrepancies(first, second),
           is_laying_over:
-            swiftly_priority(
+            only_swiftly(
               second.sources,
               second.is_laying_over,
               first.sources,
               first.is_laying_over
             ),
           layover_departure_time:
-            swiftly_priority(
+            only_swiftly(
               second.sources,
               second.layover_departure_time,
               first.sources,
@@ -156,26 +156,20 @@ defmodule Concentrate.VehiclePosition do
     defp first_value(value, _) when not is_nil(value), do: value
     defp first_value(_, value), do: value
 
-    defp swiftly_priority(sources1, value1, sources2, value2)
+    defp only_swiftly(sources1, value1, sources2, value2) do
+      case {VehiclePosition.comes_from_swiftly?(%{sources: sources1}),
+            VehiclePosition.comes_from_swiftly?(%{sources: sources2})} do
+        {true, true} ->
+          first_value(value1, value2)
 
-    defp swiftly_priority(_sources1, value1, _sources2, nil), do: value1
+        {true, false} ->
+          value1
 
-    defp swiftly_priority(_sources1, nil, _sources2, value2), do: value2
-
-    defp swiftly_priority(sources1, value1, sources2, value2) do
-      cond do
-        VehiclePosition.comes_from_swiftly?(%{sources: sources1}) ->
-          if VehiclePosition.comes_from_swiftly?(%{sources: sources2}) do
-            first_value(value1, value2)
-          else
-            value1
-          end
-
-        VehiclePosition.comes_from_swiftly?(%{sources: sources2}) ->
+        {false, true} ->
           value2
 
-        true ->
-          first_value(value1, value2)
+        {false, false} ->
+          nil
       end
     end
 
@@ -186,9 +180,7 @@ defmodule Concentrate.VehiclePosition do
     end
 
     defp discrepancies(first, second) do
-      attributes = [
-        {:trip_id, &VehiclePosition.trip_id/1}
-      ]
+      attributes = []
 
       Enum.flat_map(attributes, &discrepancy(&1, first, second))
     end
