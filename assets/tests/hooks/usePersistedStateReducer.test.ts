@@ -40,7 +40,7 @@ describe("usePersistedStateReducer", () => {
       },
       selectedRouteIds: ["1", "2"],
       selectedShuttleRouteIds: [],
-      selectedShuttleRunIds: [],
+      selectedShuttleRuns: [],
       selectedVehicleId: "2",
       settings: {
         vehicleLabel: undefined,
@@ -75,7 +75,7 @@ describe("usePersistedStateReducer", () => {
       },
       selectedRouteIds: ["1", "2"],
       selectedShuttleRouteIds: [],
-      selectedShuttleRunIds: [],
+      selectedShuttleRuns: [],
       selectedVehicleId: "2",
       settings: {
         vehicleLabel: undefined,
@@ -92,7 +92,7 @@ describe("usePersistedStateReducer", () => {
       },
       selectedRouteIds: ["28", "39"],
       selectedShuttleRouteIds: [],
-      selectedShuttleRunIds: [],
+      selectedShuttleRuns: [],
       selectedVehicleId: "2",
       settings: {
         vehicleLabel: undefined,
@@ -126,7 +126,7 @@ describe("usePersistedStateReducer", () => {
       },
       selectedRouteIds: ["1", "2"],
       selectedShuttleRouteIds: [],
-      selectedShuttleRunIds: [],
+      selectedShuttleRuns: [],
       selectedVehicleId: "2",
       settings: {
         vehicleLabel: undefined,
@@ -143,7 +143,7 @@ describe("usePersistedStateReducer", () => {
       },
       selectedRouteIds: ["28", "39"],
       selectedShuttleRouteIds: [],
-      selectedShuttleRunIds: [],
+      selectedShuttleRuns: [],
       selectedVehicleId: "2",
       settings: {
         vehicleLabel: undefined,

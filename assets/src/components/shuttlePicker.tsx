@@ -4,65 +4,177 @@ import { StateDispatchContext } from "../contexts/stateDispatchContext"
 import {
   blueLineIcon,
   commuterRailIcon,
+  greenLineBIcon,
+  greenLineCIcon,
+  greenLineDIcon,
+  greenLineEIcon,
   greenLineIcon,
+  mattapanLineIcon,
   orangeLineIcon,
   redLineIcon,
 } from "../helpers/icon"
 import useShuttleRoutes from "../hooks/useShuttleRoutes"
+import {
+  isMatchingShuttleRunSelection,
+  isRunIdShuttleRunSelection,
+  matchesRunId,
+  ShuttleRunSelection,
+  ShuttleRunSelectionType,
+} from "../models/shuttleRunSelection"
 import { SubwayRoute, subwayRoutes } from "../models/subwayRoute"
 import { RunId, Vehicle } from "../realtime"
 import { Route } from "../schedule"
 import {
   deselectAllShuttleRuns,
-  deselectShuttleRoute,
+  deselectShuttleRouteId,
   deselectShuttleRun,
   selectAllShuttleRuns,
-  selectShuttleRoute,
+  selectShuttleRouteId,
   selectShuttleRun,
 } from "../state"
 import Loading from "./loading"
 import PickerContainer, { Width } from "./pickerContainer"
 
-interface KnownShuttle {
+interface PresetRunSelectionButton {
   name: string
-  runId: RunId
+  runSelection: ShuttleRunSelection
   icon?: JSX.Element
 }
 
-const KNOWN_SHUTTLES: KnownShuttle[] = [
+const PRESET_RUN_SELECTION_BUTTONS: PresetRunSelectionButton[] = [
   {
-    name: "Special",
-    runId: "999-0555",
-  },
-  {
-    name: "Blue",
-    runId: "999-0501",
+    name: "Blue 999 61*",
+    runSelection: {
+      type: ShuttleRunSelectionType.Filter,
+      filter: /999-061.*/,
+    },
     icon: blueLineIcon(),
   },
   {
-    name: "Green",
-    runId: "999-0502",
+    name: "(OLD)",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0501" },
+    icon: blueLineIcon(),
+  },
+  {
+    name: "Green 999 62*",
+    runSelection: {
+      type: ShuttleRunSelectionType.Filter,
+      filter: /999-062.*/,
+    },
     icon: greenLineIcon(),
   },
   {
-    name: "Orange",
-    runId: "999-0503",
+    name: "Trunk",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0620" },
+    icon: greenLineIcon(),
+  },
+  {
+    name: "B Branch",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0621" },
+    icon: greenLineBIcon(),
+  },
+  {
+    name: "C Branch",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0622" },
+    icon: greenLineCIcon(),
+  },
+  {
+    name: "D Branch",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0623" },
+    icon: greenLineDIcon(),
+  },
+  {
+    name: "E Branch",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0624" },
+    icon: greenLineEIcon(),
+  },
+  {
+    name: "(OLD)",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0502" },
+    icon: greenLineIcon(),
+  },
+  {
+    name: "Orange 999 63*",
+    runSelection: {
+      type: ShuttleRunSelectionType.Filter,
+      filter: /999-063.*/,
+    },
     icon: orangeLineIcon(),
   },
   {
-    name: "Red",
-    runId: "999-0504",
+    name: "(OLD)",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0503" },
+    icon: orangeLineIcon(),
+  },
+  {
+    name: "Red 999 64*",
+    runSelection: {
+      type: ShuttleRunSelectionType.Filter,
+      filter: /999-064.*/,
+    },
     icon: redLineIcon(),
   },
   {
-    name: "CR",
-    runId: "999-0505",
+    name: "Trunk",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0640" },
+    icon: redLineIcon(),
+  },
+  {
+    name: "Ashmont",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0641" },
+    icon: redLineIcon(),
+  },
+  {
+    name: "Braintree",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0642" },
+    icon: redLineIcon(),
+  },
+  {
+    name: "(OLD)",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0504" },
+    icon: redLineIcon(),
+  },
+  {
+    name: "Mattapan 999 65*",
+    runSelection: {
+      type: ShuttleRunSelectionType.Filter,
+      filter: /999-065.*/,
+    },
+    icon: mattapanLineIcon(),
+  },
+  {
+    name: "CR North 999 66*",
+    runSelection: {
+      type: ShuttleRunSelectionType.Filter,
+      filter: /999-066.*/,
+    },
     icon: commuterRailIcon(),
+  },
+  {
+    name: "CR South 999 67*",
+    runSelection: {
+      type: ShuttleRunSelectionType.Filter,
+      filter: /999-067.*/,
+    },
+    icon: commuterRailIcon(),
+  },
+  {
+    name: "(OLD)",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0505" },
+    icon: commuterRailIcon(),
+  },
+  {
+    name: "Special",
+    runSelection: { type: ShuttleRunSelectionType.RunId, runId: "999-0555" },
   },
 ]
 
-const KNOWN_RUN_IDS: RunId[] = KNOWN_SHUTTLES.map(
-  knownShuttle => knownShuttle.runId
+const PRESET_RUN_IDS: RunId[] = PRESET_RUN_SELECTION_BUTTONS.reduce(
+  (acc: RunId[], { runSelection }: PresetRunSelectionButton) =>
+    isRunIdShuttleRunSelection(runSelection)
+      ? [...acc, runSelection.runId]
+      : acc,
+  []
 )
 
 const ShuttlePicker = ({}): ReactElement<HTMLDivElement> => {
@@ -98,26 +210,63 @@ const RunIdButtons = ({ shuttles }: { shuttles: Vehicle[] }) => {
   const runCounts = activeRunCounts(shuttles)
   const activeRunIds = Object.keys(runCounts).filter(runId => runId !== "all")
 
+  const buttonKey = (
+    presetRunSelectionButton: PresetRunSelectionButton
+  ): string =>
+    isRunIdShuttleRunSelection(presetRunSelectionButton.runSelection)
+      ? presetRunSelectionButton.runSelection.runId
+      : presetRunSelectionButton.runSelection.filter.toString()
+
+  const presetRunSelectionButtonCount = ({
+    runSelection,
+  }: PresetRunSelectionButton): number | undefined => {
+    if (isRunIdShuttleRunSelection(runSelection)) {
+      return runCounts[runSelection.runId]
+    }
+
+    const filterCount = activeRunIds.reduce(
+      (count, activeRunId) =>
+        matchesRunId(runSelection, activeRunId)
+          ? count + runCounts[activeRunId]
+          : count,
+      0
+    )
+
+    if (filterCount === 0) {
+      return undefined
+    } else {
+      return filterCount
+    }
+  }
+
+  const isPresetRunSelectionButtonActive = ({
+    runSelection,
+  }: PresetRunSelectionButton): boolean =>
+    activeRunIds.some(activeRunId => matchesRunId(runSelection, activeRunId))
+
   return (
     <>
       <AllSpecialsButton count={runCounts.all} />
-      {KNOWN_SHUTTLES.map(knownShuttle => (
+      {PRESET_RUN_SELECTION_BUTTONS.map(presetRunSelectionButton => (
         <RunIdButton
-          key={knownShuttle.runId}
-          name={`${knownShuttle.name} ${formatRunId(knownShuttle.runId)}`}
-          icon={knownShuttle.icon}
-          count={runCounts[knownShuttle.runId]}
-          runId={knownShuttle.runId}
-          isActive={activeRunIds.includes(knownShuttle.runId)}
+          key={buttonKey(presetRunSelectionButton)}
+          name={buttonLabel(presetRunSelectionButton)}
+          icon={presetRunSelectionButton.icon}
+          count={presetRunSelectionButtonCount(presetRunSelectionButton)}
+          shuttleRunSelection={presetRunSelectionButton.runSelection}
+          isActive={isPresetRunSelectionButtonActive(presetRunSelectionButton)}
         />
       ))}
       {activeRunIds.map(runId =>
-        KNOWN_RUN_IDS.includes(runId) ? null : (
+        PRESET_RUN_IDS.includes(runId) ? null : (
           <RunIdButton
             key={runId}
             name={formatRunId(runId)}
             count={runCounts[runId]}
-            runId={runId}
+            shuttleRunSelection={{
+              type: ShuttleRunSelectionType.RunId,
+              runId,
+            }}
             isActive={true}
           />
         )
@@ -148,7 +297,7 @@ const AllSpecialsButton = ({
   count: number
 }): ReactElement<HTMLElement> => {
   const [state, dispatch] = useContext(StateDispatchContext)
-  const isSelected = state.selectedShuttleRunIds === "all"
+  const isSelected = state.selectedShuttleRuns === "all"
 
   const toggleAllShuttleRuns = () =>
     isSelected
@@ -170,24 +319,26 @@ const RunIdButton = ({
   name,
   icon,
   count,
-  runId,
+  shuttleRunSelection,
   isActive,
 }: {
   name: string
   icon?: JSX.Element
   count?: number
-  runId: RunId
+  shuttleRunSelection: ShuttleRunSelection
   isActive: boolean
 }): ReactElement<HTMLLIElement> => {
   const [state, dispatch] = useContext(StateDispatchContext)
   const isSelected =
-    state.selectedShuttleRunIds !== "all" &&
-    state.selectedShuttleRunIds.includes(runId)
+    state.selectedShuttleRuns !== "all" &&
+    state.selectedShuttleRuns.some(selectedShuttleRun =>
+      isMatchingShuttleRunSelection(selectedShuttleRun, shuttleRunSelection)
+    )
 
   const onClick = isActive
     ? isSelected
-      ? () => dispatch(deselectShuttleRun(runId))
-      : () => dispatch(selectShuttleRun(runId))
+      ? () => dispatch(deselectShuttleRun(shuttleRunSelection))
+      : () => dispatch(selectShuttleRun(shuttleRunSelection))
     : // tslint:disable-next-line: no-empty
       () => {}
 
@@ -279,8 +430,8 @@ const RouteButton = ({
     : "m-route-picker__route-list-button--unselected"
 
   const toggleRoute = isSelected
-    ? () => dispatch(deselectShuttleRoute(id))
-    : () => dispatch(selectShuttleRoute(id))
+    ? () => dispatch(deselectShuttleRouteId(id))
+    : () => dispatch(selectShuttleRouteId(id))
 
   return (
     <li>
@@ -293,6 +444,14 @@ const RouteButton = ({
     </li>
   )
 }
+
+const buttonLabel = ({
+  name,
+  runSelection,
+}: PresetRunSelectionButton): string =>
+  isRunIdShuttleRunSelection(runSelection)
+    ? `${name} ${formatRunId(runSelection.runId)}`
+    : name
 
 export const formatRunId = (runId: RunId): string => runId.replace(/-0*/, " ")
 

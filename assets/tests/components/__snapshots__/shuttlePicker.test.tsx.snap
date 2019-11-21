@@ -59,7 +59,15 @@ exports[`ShuttlePicker renders 1`] = `
           <span
             className="m-route-picker__route-list-button-name"
           >
-            Special 999 555
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Blue 999 61*
           </span>
           <span
             className="m-route-picker__route-list-button-count"
@@ -83,7 +91,7 @@ exports[`ShuttlePicker renders 1`] = `
                 }
               }
             />
-            Blue 999 501
+            (OLD) 999 501
           </span>
           <span
             className="m-route-picker__route-list-button-count"
@@ -107,7 +115,175 @@ exports[`ShuttlePicker renders 1`] = `
                 }
               }
             />
-            Green 999 502
+            Green 999 62*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Trunk 999 620
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            B Branch 999 621
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            C Branch 999 622
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            D Branch 999 623
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            E Branch 999 624
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            (OLD) 999 502
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Orange 999 63*
           </span>
           <span
             className="m-route-picker__route-list-button-count"
@@ -131,33 +307,7 @@ exports[`ShuttlePicker renders 1`] = `
                 }
               }
             />
-            Orange 999 503
-          </span>
-          <span
-            className="m-route-picker__route-list-button-count"
-          >
-            1
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--selected"
-          disabled={false}
-          onClick={[Function]}
-        >
-          <span
-            className="m-route-picker__route-list-button-name"
-          >
-            <span
-              className=""
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "SVG",
-                }
-              }
-            />
-            Red 999 504
+            (OLD) 999 503
           </span>
           <span
             className="m-route-picker__route-list-button-count"
@@ -183,7 +333,217 @@ exports[`ShuttlePicker renders 1`] = `
                 }
               }
             />
-            CR 999 505
+            Red 999 64*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Trunk 999 640
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Ashmont 999 641
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Braintree 999 642
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--selected"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            (OLD) 999 504
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          >
+            1
+          </span>
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Mattapan 999 65*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            CR North 999 66*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            CR South 999 67*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            (OLD) 999 505
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            Special 999 555
           </span>
           <span
             className="m-route-picker__route-list-button-count"
@@ -353,127 +713,487 @@ exports[`ShuttlePicker renders loaded state with no shuttles 1`] = `
           <span
             className="m-route-picker__route-list-button-name"
           >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Blue 999 61*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            (OLD) 999 501
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Green 999 62*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Trunk 999 620
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            B Branch 999 621
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            C Branch 999 622
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            D Branch 999 623
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            E Branch 999 624
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            (OLD) 999 502
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Orange 999 63*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            (OLD) 999 503
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Red 999 64*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Trunk 999 640
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Ashmont 999 641
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Braintree 999 642
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            (OLD) 999 504
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            Mattapan 999 65*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            CR North 999 66*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            CR South 999 67*
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
+            <span
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "SVG",
+                }
+              }
+            />
+            (OLD) 999 505
+          </span>
+          <span
+            className="m-route-picker__route-list-button-count"
+          />
+        </button>
+      </li>
+      <li>
+        <button
+          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            className="m-route-picker__route-list-button-name"
+          >
             Special 999 555
-          </span>
-          <span
-            className="m-route-picker__route-list-button-count"
-          />
-        </button>
-      </li>
-      <li>
-        <button
-          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="m-route-picker__route-list-button-name"
-          >
-            <span
-              className=""
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "SVG",
-                }
-              }
-            />
-            Blue 999 501
-          </span>
-          <span
-            className="m-route-picker__route-list-button-count"
-          />
-        </button>
-      </li>
-      <li>
-        <button
-          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="m-route-picker__route-list-button-name"
-          >
-            <span
-              className=""
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "SVG",
-                }
-              }
-            />
-            Green 999 502
-          </span>
-          <span
-            className="m-route-picker__route-list-button-count"
-          />
-        </button>
-      </li>
-      <li>
-        <button
-          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="m-route-picker__route-list-button-name"
-          >
-            <span
-              className=""
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "SVG",
-                }
-              }
-            />
-            Orange 999 503
-          </span>
-          <span
-            className="m-route-picker__route-list-button-count"
-          />
-        </button>
-      </li>
-      <li>
-        <button
-          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="m-route-picker__route-list-button-name"
-          >
-            <span
-              className=""
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "SVG",
-                }
-              }
-            />
-            Red 999 504
-          </span>
-          <span
-            className="m-route-picker__route-list-button-count"
-          />
-        </button>
-      </li>
-      <li>
-        <button
-          className="m-route-picker__route-list-button m-route-picker__route-list-button--with-count m-route-picker__route-list-button--disabled"
-          disabled={true}
-          onClick={[Function]}
-        >
-          <span
-            className="m-route-picker__route-list-button-name"
-          >
-            <span
-              className=""
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "SVG",
-                }
-              }
-            />
-            CR 999 505
           </span>
           <span
             className="m-route-picker__route-list-button-count"
