@@ -8,6 +8,7 @@ import { StateDispatchProvider } from "../../src/contexts/stateDispatchContext"
 import { Ghost, Vehicle, VehicleOrGhost } from "../../src/realtime"
 import { ByRouteId, Route, TimepointsByRouteId } from "../../src/schedule.d"
 import { initialState } from "../../src/state"
+import { FocusType } from "../../src/models/focusedVehicle"
 
 jest.mock("../../src/hooks/useRoutes", () => ({
   __esModule: true,
@@ -87,7 +88,10 @@ describe("findRouteById", () => {
 describe("findSelectedVehicleOrGhost", () => {
   test("returns the requested vehicle if it is on the route", () => {
     expect(
-      findSelectedVehicleOrGhost(vehiclesByRouteId, "on-route-39")
+      findSelectedVehicleOrGhost(vehiclesByRouteId, {
+        id: "on-route-39",
+        type: FocusType.Selected,
+      })
     ).toEqual({
       id: "on-route-39",
       routeStatus: "on_route",
@@ -96,7 +100,10 @@ describe("findSelectedVehicleOrGhost", () => {
 
   test("returns the requested vehicle if it is pulling out", () => {
     expect(
-      findSelectedVehicleOrGhost(vehiclesByRouteId, "pulling-out-39")
+      findSelectedVehicleOrGhost(vehiclesByRouteId, {
+        id: "pulling-out-39",
+        type: FocusType.Selected,
+      })
     ).toEqual({
       id: "pulling-out-39",
       routeStatus: "pulling_out",
@@ -104,18 +111,26 @@ describe("findSelectedVehicleOrGhost", () => {
   })
 
   test("returns the requested vehicle if it is a ghost bus", () => {
-    expect(findSelectedVehicleOrGhost(vehiclesByRouteId, "ghost-39")).toEqual({
+    expect(
+      findSelectedVehicleOrGhost(vehiclesByRouteId, {
+        id: "ghost-39",
+        type: FocusType.Selected,
+      })
+    ).toEqual({
       id: "ghost-39",
     })
   })
 
   test("returns undefined if the vehicle is not found", () => {
     expect(
-      findSelectedVehicleOrGhost(vehiclesByRouteId, "missing-23")
+      findSelectedVehicleOrGhost(vehiclesByRouteId, {
+        id: "missing-23",
+        type: FocusType.Selected,
+      })
     ).toBeUndefined()
   })
 
-  test("returns undefined if selectedVehicleId is undefined", () => {
+  test("returns undefined if focusedVehicle is undefined", () => {
     expect(
       findSelectedVehicleOrGhost(vehiclesByRouteId, undefined)
     ).toBeUndefined()

@@ -2,8 +2,9 @@ import React, { ReactElement, useContext } from "react"
 import { ShuttleVehiclesContext } from "../contexts/shuttleVehiclesContext"
 import { StateDispatchContext } from "../contexts/stateDispatchContext"
 import useRouteShapes from "../hooks/useRouteShapes"
+import { FocusedVehicle, isVehicleSelected } from "../models/focusedVehicle"
 import { loadedShapes } from "../models/shape"
-import { RunId, Vehicle, VehicleId } from "../realtime"
+import { RunId, Vehicle } from "../realtime"
 import { Shape } from "../schedule"
 import Map from "./map"
 import PropertiesPanel from "./propertiesPanel"
@@ -24,16 +25,16 @@ const filterShuttles = (
 
 const findSelectedVehicle = (
   vehicles: Vehicle[],
-  selectedVehicleId: VehicleId | undefined
+  focusedVehicle: FocusedVehicle | undefined
 ): Vehicle | undefined =>
-  vehicles.find(vehicle => vehicle.id === selectedVehicleId)
+  vehicles.find(vehicle => isVehicleSelected(vehicle, focusedVehicle))
 
 const ShuttleMapPage = ({}): ReactElement<HTMLDivElement> => {
   const [state] = useContext(StateDispatchContext)
   const {
+    focusedVehicle,
     selectedShuttleRouteIds,
     selectedShuttleRunIds,
-    selectedVehicleId,
   } = state
   const shuttles: Vehicle[] | null = useContext(ShuttleVehiclesContext)
   const shuttleRouteShapesByRouteId = useRouteShapes(selectedShuttleRouteIds)
@@ -46,10 +47,7 @@ const ShuttleMapPage = ({}): ReactElement<HTMLDivElement> => {
     selectedShuttleRunIds
   )
 
-  const selectedVehicle = findSelectedVehicle(
-    selectedShuttles,
-    selectedVehicleId
-  )
+  const selectedVehicle = findSelectedVehicle(selectedShuttles, focusedVehicle)
 
   return (
     <div className="m-shuttle-map">

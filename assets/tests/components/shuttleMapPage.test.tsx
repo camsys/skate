@@ -3,6 +3,7 @@ import renderer from "react-test-renderer"
 import ShuttleMapPage from "../../src/components/shuttleMapPage"
 import { ShuttleVehiclesProvider } from "../../src/contexts/shuttleVehiclesContext"
 import { StateDispatchProvider } from "../../src/contexts/stateDispatchContext"
+import { FocusType } from "../../src/models/focusedVehicle"
 import { HeadwaySpacing } from "../../src/models/vehicleStatus"
 import { Vehicle } from "../../src/realtime"
 import { initialState } from "../../src/state"
@@ -97,7 +98,10 @@ describe("Shuttle Map Page", () => {
     const state = {
       ...initialState,
       selectedShuttleRunIds: [shuttle.runId!],
-      selectedVehicleId: shuttle.id,
+      focusedVehicle: {
+        id: shuttle.id,
+        type: FocusType.Selected,
+      },
     }
     const tree = renderer
       .create(

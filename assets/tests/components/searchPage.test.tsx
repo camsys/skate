@@ -4,6 +4,7 @@ import renderer from "react-test-renderer"
 import SearchPage from "../../src/components/searchPage"
 import { StateDispatchProvider } from "../../src/contexts/stateDispatchContext"
 import useSearchResults from "../../src/hooks/useSearchResults"
+import { FocusType } from "../../src/models/focusedVehicle"
 import { HeadwaySpacing } from "../../src/models/vehicleStatus"
 import { Ghost, Vehicle, VehicleOrGhost } from "../../src/realtime"
 import { initialState, State } from "../../src/state"
@@ -117,7 +118,7 @@ describe("SearchPage", () => {
   test("renders a selected vehicle", () => {
     const selectedVehicleState: State = {
       ...initialState,
-      selectedVehicleId: "v1",
+      focusedVehicle: { id: "v1", type: FocusType.Selected },
     }
 
     const tree = renderer

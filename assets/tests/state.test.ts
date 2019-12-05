@@ -1,3 +1,4 @@
+import { FocusType, FocusedVehicle } from "../src/models/focusedVehicle"
 import { VehicleId } from "../src/realtime.d"
 import { VehicleLabelSetting } from "../src/settings"
 import * as State from "../src/state"
@@ -219,7 +220,10 @@ describe("reducer", () => {
     const state = initialState
     const expectedState = {
       ...state,
-      selectedVehicleId: vehicleId,
+      focusedVehicle: {
+        id: vehicleId,
+        type: FocusType.Selected,
+      },
     }
 
     const newState = reducer(state, State.selectVehicle(vehicleId))
@@ -229,13 +233,17 @@ describe("reducer", () => {
 
   test("deselectVehicle", () => {
     const initialVehicleId: VehicleId = "v1"
+    const initialFocusedVehicle: FocusedVehicle = {
+      id: initialVehicleId,
+      type: FocusType.Selected,
+    }
     const state = {
       ...initialState,
-      selectedVehicleId: initialVehicleId,
+      focusedVehicle: initialFocusedVehicle,
     }
     const expectedState = {
       ...state,
-      selectedVehicleId: undefined,
+      focusedVehicle: undefined,
     }
 
     const newState = reducer(state, State.deselectVehicle())

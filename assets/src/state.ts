@@ -1,4 +1,5 @@
 import { Dispatch as ReactDispatch } from "react"
+import { FocusedVehicle, FocusType } from "./models/focusedVehicle"
 import {
   Action as SearchAction,
   initialSearch as initialSearchState,
@@ -10,22 +11,22 @@ import { RouteId } from "./schedule.d"
 import { defaultSettings, Settings, VehicleLabelSetting } from "./settings"
 
 export interface State {
+  focusedVehicle?: FocusedVehicle
   pickerContainerIsVisible: boolean
   search: Search
   selectedRouteIds: RouteId[]
   selectedShuttleRouteIds: RouteId[]
   selectedShuttleRunIds: RunId[] | "all"
-  selectedVehicleId?: VehicleId
   settings: Settings
 }
 
 export const initialState: State = {
+  focusedVehicle: undefined,
   pickerContainerIsVisible: true,
   search: initialSearchState,
   selectedRouteIds: [],
   selectedShuttleRouteIds: [],
   selectedShuttleRunIds: "all",
-  selectedVehicleId: undefined,
   settings: defaultSettings,
 }
 
@@ -229,6 +230,20 @@ export type Reducer = (state: State, action: Action) => State
 const shuttleRunIdsList = (selectedShuttleRunIds: RunId[] | "all"): RunId[] =>
   selectedShuttleRunIds === "all" ? [] : selectedShuttleRunIds
 
+const focusedVehicleReducer = (
+  state: FocusedVehicle | undefined,
+  action: Action
+): FocusedVehicle | undefined => {
+  switch (action.type) {
+    case "SELECT_VEHICLE":
+      return { id: action.payload.vehicleId, type: FocusType.Selected }
+    case "DESELECT_VEHICLE":
+      return undefined
+    default:
+      return state
+  }
+}
+
 const pickerContainerIsVisibleReducer = (
   state: boolean,
   action: Action
@@ -298,20 +313,6 @@ const selectedShuttleRunIdsReducer = (
   }
 }
 
-const selectedVehicleIdReducer = (
-  state: VehicleId | undefined,
-  action: Action
-): VehicleId | undefined => {
-  switch (action.type) {
-    case "SELECT_VEHICLE":
-      return action.payload.vehicleId
-    case "DESELECT_VEHICLE":
-      return undefined
-    default:
-      return state
-  }
-}
-
 const settingsReducer = (state: Settings, action: Action): Settings => {
   switch (action.type) {
     case "SET_LADDER_VEHICLE_LABEL_SETTING":
@@ -330,6 +331,7 @@ const settingsReducer = (state: Settings, action: Action): Settings => {
 }
 
 export const reducer = (state: State, action: Action): State => ({
+  focusedVehicle: focusedVehicleReducer(state.focusedVehicle, action),
   pickerContainerIsVisible: pickerContainerIsVisibleReducer(
     state.pickerContainerIsVisible,
     action
@@ -344,6 +346,5 @@ export const reducer = (state: State, action: Action): State => ({
     state.selectedShuttleRunIds,
     action
   ),
-  selectedVehicleId: selectedVehicleIdReducer(state.selectedVehicleId, action),
   settings: settingsReducer(state.settings, action),
 })

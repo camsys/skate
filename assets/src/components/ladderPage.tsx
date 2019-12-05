@@ -3,8 +3,9 @@ import { StateDispatchContext } from "../contexts/stateDispatchContext"
 import { VehiclesByRouteIdContext } from "../contexts/vehiclesByRouteIdContext"
 import useRoutes from "../hooks/useRoutes"
 import useTimepoints from "../hooks/useTimepoints"
+import { FocusedVehicle, isVehicleSelected } from "../models/focusedVehicle"
 import { allVehiclesAndGhosts } from "../models/vehiclesByRouteId"
-import { VehicleId, VehicleOrGhost } from "../realtime.d"
+import { VehicleOrGhost } from "../realtime.d"
 import { ByRouteId, Route, RouteId, TimepointsByRouteId } from "../schedule.d"
 import PropertiesPanel from "./propertiesPanel"
 import RouteLadders from "./routeLadders"
@@ -17,10 +18,10 @@ export const findRouteById = (
 
 export const findSelectedVehicleOrGhost = (
   vehiclesByRouteId: ByRouteId<VehicleOrGhost[]>,
-  selectedVehicleId: VehicleId | undefined
+  focusedVehicle: FocusedVehicle | undefined
 ): VehicleOrGhost | undefined => {
-  return allVehiclesAndGhosts(vehiclesByRouteId).find(
-    bus => bus.id === selectedVehicleId
+  return allVehiclesAndGhosts(vehiclesByRouteId).find(bus =>
+    isVehicleSelected(bus, focusedVehicle)
   )
 }
 
@@ -34,7 +35,7 @@ const vehicleRoute = (
 
 const LadderPage = (): ReactElement<HTMLDivElement> => {
   const [state] = useContext(StateDispatchContext)
-  const { selectedRouteIds, selectedVehicleId } = state
+  const { focusedVehicle, selectedRouteIds } = state
 
   const routes: Route[] | null = useRoutes()
   const timepointsByRouteId: TimepointsByRouteId = useTimepoints(
@@ -50,7 +51,7 @@ const LadderPage = (): ReactElement<HTMLDivElement> => {
 
   const selectedVehicleOrGhost = findSelectedVehicleOrGhost(
     vehiclesByRouteId,
-    selectedVehicleId
+    focusedVehicle
   )
 
   return (
@@ -60,7 +61,7 @@ const LadderPage = (): ReactElement<HTMLDivElement> => {
       <RouteLadders
         routes={selectedRoutes}
         timepointsByRouteId={timepointsByRouteId}
-        selectedVehicleId={selectedVehicleId}
+        selectedVehicleId={selectedVehicleOrGhost && selectedVehicleOrGhost.id}
       />
 
       {selectedVehicleOrGhost && (

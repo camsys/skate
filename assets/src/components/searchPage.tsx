@@ -3,9 +3,10 @@ import React, { ReactElement, useContext, useState } from "react"
 import { SocketContext } from "../contexts/socketContext"
 import { StateDispatchContext } from "../contexts/stateDispatchContext"
 import useSearchResults from "../hooks/useSearchResults"
+import { FocusedVehicle, isVehicleSelected } from "../models/focusedVehicle"
 import { isValidSearch, Search } from "../models/search"
 import { isVehicle } from "../models/vehicle"
-import { Vehicle, VehicleId, VehicleOrGhost } from "../realtime"
+import { Vehicle, VehicleOrGhost } from "../realtime"
 import Map from "./map"
 import PropertiesPanel from "./propertiesPanel"
 import RecentSearches from "./recentSearches"
@@ -35,9 +36,9 @@ const filterVehicles = (
 
 const findSelectedVehicle = (
   vehicles: VehicleOrGhost[],
-  selectedVehicleId: VehicleId | undefined
+  focusedVehicle: FocusedVehicle | undefined
 ): VehicleOrGhost | undefined =>
-  vehicles.find(vehicle => vehicle.id === selectedVehicleId)
+  vehicles.find(vehicle => isVehicleSelected(vehicle, focusedVehicle))
 
 const ToggleMobileDisplayButton = ({
   mobileDisplay,
@@ -59,7 +60,7 @@ const ToggleMobileDisplayButton = ({
 }
 
 const SearchPage = (): ReactElement<HTMLDivElement> => {
-  const [{ search, selectedVehicleId }] = useContext(StateDispatchContext)
+  const [{ focusedVehicle, search }] = useContext(StateDispatchContext)
   const socket: Socket | undefined = useContext(SocketContext)
   const vehicles: VehicleOrGhost[] | null | undefined = useSearchResults(
     socket,
@@ -83,7 +84,7 @@ const SearchPage = (): ReactElement<HTMLDivElement> => {
 
   const selectedVehicle: VehicleOrGhost | undefined = findSelectedVehicle(
     vehicles || [],
-    selectedVehicleId
+    focusedVehicle
   )
 
   return (
