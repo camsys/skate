@@ -1,14 +1,12 @@
-import React, { useContext } from "react"
-import { StateDispatchContext } from "../contexts/stateDispatchContext"
-import { setSearchText, submitSearch } from "../state/searchPageState"
+import React from "react"
+import { SavedSearchQuery } from "../models/searchQuery"
 
-const RecentSearches = () => {
-  const [
-    {
-      searchPageState: { savedQueries },
-    },
-    dispatch,
-  ] = useContext(StateDispatchContext)
+interface Props {
+  savedQueries: SavedSearchQuery[]
+  selectQuery: (savedQuery: SavedSearchQuery) => void
+}
+
+const RecentSearches = ({ savedQueries, selectQuery }: Props) => {
   return (
     <div className="m-recent-searches">
       <div className="m-recent-searches__heading">Recent Searches</div>
@@ -16,10 +14,7 @@ const RecentSearches = () => {
         <button
           key={i}
           className="m-recent-searches__button"
-          onClick={() => {
-            dispatch(setSearchText(savedQuery.text))
-            dispatch(submitSearch())
-          }}
+          onClick={() => selectQuery(savedQuery)}
         >
           {savedQuery.text}
         </button>

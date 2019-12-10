@@ -7,6 +7,7 @@ import useSearchResults from "../../src/hooks/useSearchResults"
 import { HeadwaySpacing } from "../../src/models/vehicleStatus"
 import { Ghost, Vehicle, VehicleOrGhost } from "../../src/realtime"
 import { initialState, State } from "../../src/state"
+import { initialSearchPageState } from "../../src/state/searchPageState"
 
 jest.spyOn(Date, "now").mockImplementation(() => 234000)
 
@@ -117,6 +118,27 @@ describe("SearchPage", () => {
       .create(
         <StateDispatchProvider
           state={selectedVehicleState}
+          dispatch={jest.fn()}
+        >
+          <SearchPage />
+        </StateDispatchProvider>
+      )
+      .toJSON()
+
+    expect(tree).toMatchSnapshot()
+  })
+
+  test("renders recent searches", () => {
+    const tree = renderer
+      .create(
+        <StateDispatchProvider
+          state={{
+            ...initialState,
+            searchPageState: {
+              ...initialSearchPageState,
+              savedQueries: [{ text: "poodle" }],
+            },
+          }}
           dispatch={jest.fn()}
         >
           <SearchPage />

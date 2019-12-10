@@ -5,7 +5,11 @@ import { StateDispatchContext } from "../contexts/stateDispatchContext"
 import useSearchResults from "../hooks/useSearchResults"
 import { isVehicle } from "../models/vehicle"
 import { Vehicle, VehicleId, VehicleOrGhost } from "../realtime"
-import { SearchPageState } from "../state/searchPageState"
+import {
+  SearchPageState,
+  setSearchText,
+  submitSearch,
+} from "../state/searchPageState"
 import Map from "./map"
 import PropertiesPanel from "./propertiesPanel"
 import RecentSearches from "./recentSearches"
@@ -59,7 +63,7 @@ const ToggleMobileDisplayButton = ({
 }
 
 const SearchPage = (): ReactElement<HTMLDivElement> => {
-  const [{ searchPageState, selectedVehicleId }] = useContext(
+  const [{ searchPageState, selectedVehicleId }, dispatch] = useContext(
     StateDispatchContext
   )
   const socket: Socket | undefined = useContext(SocketContext)
@@ -104,7 +108,13 @@ const SearchPage = (): ReactElement<HTMLDivElement> => {
           {thereIsAnActiveSearch(vehicles, searchPageState) ? (
             <SearchResults vehicles={vehicles as VehicleOrGhost[]} />
           ) : (
-            <RecentSearches />
+            <RecentSearches
+              savedQueries={searchPageState.savedQueries}
+              selectQuery={savedQuery => {
+                dispatch(setSearchText(savedQuery.text))
+                dispatch(submitSearch())
+              }}
+            />
           )}
         </div>
       </div>
