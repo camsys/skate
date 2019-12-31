@@ -14,7 +14,6 @@ import { Settings } from "../settings"
 import {
   Dispatch,
   selectVehicle as selectVehicleAction,
-  //State as AppState,
 } from "../state"
 import {
   Map as LeafletMap,
@@ -24,7 +23,6 @@ import {
   Polyline,
   CircleMarker,
 } from "react-leaflet"
-import { flatten } from "../helpers/array"
 
 interface Props {
   vehicles: Vehicle[]
@@ -34,7 +32,7 @@ interface Props {
 const selectVehicle = ({ id }: Vehicle, dispatch: Dispatch) => () =>
   dispatch(selectVehicleAction(id))
 
-export const makeVehicleIcon = (vehicle: Vehicle): Leaflet.DivIcon => {
+const makeVehicleIcon = (vehicle: Vehicle): Leaflet.DivIcon => {
   const centerX = 12
   const centerY = 12
   return Leaflet.divIcon({
@@ -55,7 +53,7 @@ export const makeVehicleIcon = (vehicle: Vehicle): Leaflet.DivIcon => {
   })
 }
 
-export const makeLabelIcon = (
+const makeLabelIcon = (
   vehicle: Vehicle,
   settings: Settings,
   selectedVehicleId?: VehicleId
@@ -171,6 +169,33 @@ export const newLeafletMap = (
   return map
 }
 */
+
+const Vehicle = ({ vehicle }: {vehicle: Vehicle }) => {
+  const [appState, dispatch] = useContext(StateDispatchContext)
+  const position: LatLngExpression = [
+    vehicle.latitude,
+    vehicle.longitude,
+  ]
+  const vehicleIcon: Leaflet.DivIcon = makeVehicleIcon(vehicle)
+  const labelIcon: Leaflet.DivIcon = makeLabelIcon(
+    vehicle,
+    appState.settings,
+    appState.selectedVehicleId
+  )
+  return <>
+    <Marker
+      position={position}
+      icon={vehicleIcon}
+      onClick={selectVehicle(vehicle, dispatch)}
+    />
+    <Marker
+      position={position}
+      icon={labelIcon}
+      onClick={selectVehicle(vehicle, dispatch)}
+    />
+  </>
+}
+
 const Shape = ({ shape }: { shape: Shape }) => {
   const positions: LatLngExpression[] = shape.points.map(point => [
     point.lat,
@@ -209,7 +234,6 @@ const Shape = ({ shape }: { shape: Shape }) => {
 }
 
 const Map = (props: Props): ReactElement<HTMLDivElement> => {
-  const [, /*appState*/ dispatch] = useContext(StateDispatchContext)
   //const [shouldAutoCenter, setShouldAutoCenter] = useState<boolean>(true)
   //const isAutoCentering: MutableRefObject<boolean> = useRef(false)
 
@@ -249,34 +273,11 @@ const Map = (props: Props): ReactElement<HTMLDivElement> => {
         url="https://mbta-map-tiles-dev.s3.amazonaws.com/osm_tiles/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      {flatten(
-        props.vehicles.map((vehicle: Vehicle) => {
-          const position: LatLngExpression = [
-            vehicle.latitude,
-            vehicle.longitude,
-          ]
-          /*const vehicleIcon: Leaflet.DivIcon = makeVehicleIcon(vehicle)
-        const labelIcon: Leaflet.DivIcon = makeLabelIcon(
-          vehicle,
-          appState.settings,
-          appState.selectedVehicleId
-        )
-        */
-          return [
-            <Marker
-              key={`vehicle-${vehicle.id}`}
-              position={position}
-              //icon={vehicleIcon}
-              onClick={selectVehicle(vehicle, dispatch)}
-            />,
-            <Marker
-              key={`label-${vehicle.id}`}
-              position={position}
-              //icon={labelIcon}
-              onClick={selectVehicle(vehicle, dispatch)}
-            />,
-          ]
-        })
+      {props.vehicles.map((vehicle: Vehicle) =>
+        <Vehicle
+          key={vehicle.id}
+          vehicle={vehicle}
+        />
       )}
       {(props.shapes || []).map(shape =>
         <Shape
