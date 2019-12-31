@@ -169,7 +169,7 @@ const RecenterControl = ({turnOnAutoCenter, controlOptions}: {
 }) =>
   <Control {...controlOptions} >
     <div
-      className="leaflet-bar leaflet-control m-vehicle-map__recenter-button"
+      className="leaflet-bar m-vehicle-map__recenter-button"
     >
       <a
         href="#"
@@ -183,9 +183,9 @@ const RecenterControl = ({turnOnAutoCenter, controlOptions}: {
         }}
       >
         <svg
-          height="30"
-          viewBox="-7 -5 36 36"
-          width="30"
+          height="26"
+          viewBox="-5 -3 32 32"
+          width="26"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
