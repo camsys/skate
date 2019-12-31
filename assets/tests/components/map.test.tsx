@@ -373,27 +373,6 @@ describe("auto centering", () => {
     expect(mapResult.current!.getCenter()).toEqual(latLng3)
   })
 })
-
-describe("latLons", () => {
-  test("retuns lat-lon pairs in arrays from the points of a Shape", () => {
-    const shape: Shape = {
-      id: "shape1",
-      points: [
-        { lat: 42.41356, lon: -70.99211 },
-        { lat: 43.41356, lon: -71.99211 },
-        { lat: 44.41356, lon: -72.99211 },
-      ],
-    }
-
-    const expectedResult = [
-      [42.41356, -70.99211],
-      [43.41356, -71.99211],
-      [44.41356, -72.99211],
-    ]
-
-    expect(latLons(shape)).toEqual(expectedResult)
-  })
-})
 */
 
 describe("strokeOptions", () => {
