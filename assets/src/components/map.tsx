@@ -11,10 +11,7 @@ import { drawnStatus, statusClass } from "../models/vehicleStatus"
 import { Vehicle, VehicleId } from "../realtime.d"
 import { Shape } from "../schedule"
 import { Settings } from "../settings"
-import {
-  Dispatch,
-  selectVehicle as selectVehicleAction,
-} from "../state"
+import { Dispatch, selectVehicle as selectVehicleAction } from "../state"
 import {
   Map as LeafletMap,
   Marker,
@@ -76,6 +73,68 @@ const makeLabelIcon = (
   })
 }
 const defaultCenter: LatLngExpression = [42.360718, -71.05891]
+
+const Vehicle = ({ vehicle }: { vehicle: Vehicle }) => {
+  const [appState, dispatch] = useContext(StateDispatchContext)
+  const position: LatLngExpression = [vehicle.latitude, vehicle.longitude]
+  const vehicleIcon: Leaflet.DivIcon = makeVehicleIcon(vehicle)
+  const labelIcon: Leaflet.DivIcon = makeLabelIcon(
+    vehicle,
+    appState.settings,
+    appState.selectedVehicleId
+  )
+  return (
+    <>
+      <Marker
+        position={position}
+        icon={vehicleIcon}
+        onClick={selectVehicle(vehicle, dispatch)}
+      />
+      <Marker
+        position={position}
+        icon={labelIcon}
+        onClick={selectVehicle(vehicle, dispatch)}
+      />
+    </>
+  )
+}
+
+const Shape = ({ shape }: { shape: Shape }) => {
+  const positions: LatLngExpression[] = shape.points.map(point => [
+    point.lat,
+    point.lon,
+  ])
+
+  const strokeOptions = shape.color
+    ? {
+        color: shape.color,
+        opacity: 1.0,
+        weight: 3,
+      }
+    : {
+        color: "#4db6ac",
+        opacity: 0.6,
+        weight: 6,
+      }
+
+  return (
+    <>
+      <Polyline
+        className="m-vehicle-map__route-shape"
+        positions={positions}
+        {...strokeOptions}
+      />
+      {(shape.stops || []).map(stop => (
+        <CircleMarker
+          key={stop.id}
+          className="m-vehicle-map__stop"
+          center={[stop.lat, stop.lon]}
+          radius={3}
+        />
+      ))}
+    </>
+  )
+}
 
 /*
 export const autoCenter = (
@@ -170,69 +229,6 @@ export const newLeafletMap = (
 }
 */
 
-const Vehicle = ({ vehicle }: {vehicle: Vehicle }) => {
-  const [appState, dispatch] = useContext(StateDispatchContext)
-  const position: LatLngExpression = [
-    vehicle.latitude,
-    vehicle.longitude,
-  ]
-  const vehicleIcon: Leaflet.DivIcon = makeVehicleIcon(vehicle)
-  const labelIcon: Leaflet.DivIcon = makeLabelIcon(
-    vehicle,
-    appState.settings,
-    appState.selectedVehicleId
-  )
-  return <>
-    <Marker
-      position={position}
-      icon={vehicleIcon}
-      onClick={selectVehicle(vehicle, dispatch)}
-    />
-    <Marker
-      position={position}
-      icon={labelIcon}
-      onClick={selectVehicle(vehicle, dispatch)}
-    />
-  </>
-}
-
-const Shape = ({ shape }: { shape: Shape }) => {
-  const positions: LatLngExpression[] = shape.points.map(point => [
-    point.lat,
-    point.lon,
-  ])
-
-  const strokeOptions = shape.color
-    ? {
-        color: shape.color,
-        opacity: 1.0,
-        weight: 3,
-      }
-    : {
-        color: "#4db6ac",
-        opacity: 0.6,
-        weight: 6,
-      }
-
-  return (
-    <>
-      <Polyline
-        className="m-vehicle-map__route-shape"
-        positions={positions}
-        {...strokeOptions}
-      />
-      {(shape.stops || []).map(stop => (
-        <CircleMarker
-          key={stop.id}
-          className="m-vehicle-map__stop"
-          center={[stop.lat, stop.lon]}
-          radius={3}
-        />
-      ))}
-    </>
-  )
-}
-
 const Map = (props: Props): ReactElement<HTMLDivElement> => {
   //const [shouldAutoCenter, setShouldAutoCenter] = useState<boolean>(true)
   //const isAutoCentering: MutableRefObject<boolean> = useRef(false)
@@ -273,18 +269,12 @@ const Map = (props: Props): ReactElement<HTMLDivElement> => {
         url="https://mbta-map-tiles-dev.s3.amazonaws.com/osm_tiles/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      {props.vehicles.map((vehicle: Vehicle) =>
-        <Vehicle
-          key={vehicle.id}
-          vehicle={vehicle}
-        />
-      )}
-      {(props.shapes || []).map(shape =>
-        <Shape
-          key={shape.id}
-          shape={shape}
-        />
-      )}
+      {props.vehicles.map((vehicle: Vehicle) => (
+        <Vehicle key={vehicle.id} vehicle={vehicle} />
+      ))}
+      {(props.shapes || []).map(shape => (
+        <Shape key={shape.id} shape={shape} />
+      ))}
     </LeafletMap>
   )
 }
