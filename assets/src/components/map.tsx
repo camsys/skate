@@ -1,9 +1,12 @@
-import Leaflet, { LatLngExpression } from "leaflet"
+import Leaflet, { Map as LeafletMap, LatLngExpression } from "leaflet"
 import "leaflet-defaulticon-compatibility" // see https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-483402699
 import React, {
   ReactElement,
   useContext,
-  //useEffect,
+  MutableRefObject,
+  useRef,
+  useEffect,
+  useState,
 } from "react"
 import { StateDispatchContext } from "../contexts/stateDispatchContext"
 import vehicleLabelString from "../helpers/vehicleLabel"
@@ -11,9 +14,9 @@ import { drawnStatus, statusClass } from "../models/vehicleStatus"
 import { Vehicle, VehicleId } from "../realtime.d"
 import { Shape } from "../schedule"
 import { Settings } from "../settings"
-import { Dispatch, selectVehicle as selectVehicleAction } from "../state"
+import { Dispatch, selectVehicle as selectVehicleAction , State as AppState } from "../state"
 import {
-  Map as LeafletMap,
+  Map as ReactLeafletMap,
   Marker,
   TileLayer,
   ZoomControl,
@@ -136,14 +139,13 @@ const Shape = ({ shape }: { shape: Shape }) => {
   )
 }
 
-/*
 export const autoCenter = (
   map: LeafletMap,
   vehicles: Vehicle[],
   isAutoCentering: MutableRefObject<boolean>,
   appState: AppState
 ): void => {
-  const latLngs: LatLng[] = vehicles.map(vehicle =>
+  const latLngs: LatLngExpression[] = vehicles.map(vehicle =>
     Leaflet.latLng(vehicle.latitude, vehicle.longitude)
   )
   isAutoCentering.current = true
@@ -159,6 +161,7 @@ export const autoCenter = (
   }
 }
 
+/*
 const recenterControl = (
   setShouldAutoCenter: (shouldAutoCenter: boolean) => void,
   controlOptions: Leaflet.ControlOptions
@@ -230,32 +233,36 @@ export const newLeafletMap = (
 */
 
 const Map = (props: Props): ReactElement<HTMLDivElement> => {
-  //const [shouldAutoCenter, setShouldAutoCenter] = useState<boolean>(true)
-  //const isAutoCentering: MutableRefObject<boolean> = useRef(false)
+  const [shouldAutoCenter,/* setShouldAutoCenter*/] = useState<boolean>(true)
+  const isAutoCentering: MutableRefObject<boolean> = useRef(false)
+  const [appState,] = useContext(StateDispatchContext)
+  const mapRef: MutableRefObject<ReactLeafletMap | null> = useRef(null)
 
-  /*
   useEffect(() => {
+    /*
     const map =
       mapState.map ||
       newLeafletMap(containerRef.current, isAutoCentering, setShouldAutoCenter)
-
-    if (shouldAutoCenter) {
-      autoCenter(map, props.vehicles, isAutoCentering, appState)
+      */
+    const map: ReactLeafletMap | null = mapRef.current
+    if (map !== null && shouldAutoCenter) {
+      autoCenter(map.leafletElement, props.vehicles, isAutoCentering, appState)
     }
-  }, [shouldAutoCenter, props, appState])
-    */
+  }, [shouldAutoCenter, props.vehicles, appState])
 
   return (
     /*
   (
     <div
+
       ref={container => (containerRef.current = container)}
     />
   )
   */
-    <LeafletMap
+    <ReactLeafletMap
       id="id-vehicle-map"
       className="m-vehicle-map"
+      ref={mapRef}
       maxBounds={[
         [41.2, -72],
         [43, -69.8],
@@ -275,7 +282,7 @@ const Map = (props: Props): ReactElement<HTMLDivElement> => {
       {(props.shapes || []).map(shape => (
         <Shape key={shape.id} shape={shape} />
       ))}
-    </LeafletMap>
+    </ReactLeafletMap>
   )
 }
 
