@@ -16,7 +16,7 @@ import { drawnStatus, statusClass } from "../models/vehicleStatus"
 import { Vehicle, VehicleId } from "../realtime.d"
 import { Shape } from "../schedule"
 import { Settings } from "../settings"
-import { Dispatch, selectVehicle as selectVehicleAction , State as AppState } from "../state"
+import { selectVehicle, State as AppState } from "../state"
 import {
   Map as ReactLeafletMap,
   Marker,
@@ -30,9 +30,6 @@ interface Props {
   vehicles: Vehicle[]
   shapes?: Shape[]
 }
-
-const selectVehicle = ({ id }: Vehicle, dispatch: Dispatch) => () =>
-  dispatch(selectVehicleAction(id))
 
 const makeVehicleIcon = (vehicle: Vehicle): Leaflet.DivIcon => {
   const centerX = 12
@@ -81,6 +78,7 @@ const defaultCenter: LatLngExpression = [42.360718, -71.05891]
 
 const Vehicle = ({ vehicle }: { vehicle: Vehicle }) => {
   const [appState, dispatch] = useContext(StateDispatchContext)
+  const select = () => dispatch(selectVehicle(vehicle.id))
   const position: LatLngExpression = [vehicle.latitude, vehicle.longitude]
   const vehicleIcon: Leaflet.DivIcon = makeVehicleIcon(vehicle)
   const labelIcon: Leaflet.DivIcon = makeLabelIcon(
@@ -93,12 +91,12 @@ const Vehicle = ({ vehicle }: { vehicle: Vehicle }) => {
       <Marker
         position={position}
         icon={vehicleIcon}
-        onClick={selectVehicle(vehicle, dispatch)}
+        onClick={select}
       />
       <Marker
         position={position}
         icon={labelIcon}
-        onClick={selectVehicle(vehicle, dispatch)}
+        onClick={select}
       />
     </>
   )
