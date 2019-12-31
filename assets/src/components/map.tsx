@@ -31,6 +31,8 @@ interface Props {
   shapes?: Shape[]
 }
 
+const defaultCenter: LatLngExpression = [42.360718, -71.05891]
+
 const makeVehicleIcon = (vehicle: Vehicle): Leaflet.DivIcon => {
   const centerX = 12
   const centerY = 12
@@ -74,7 +76,6 @@ const makeLabelIcon = (
     iconAnchor: [21, -16],
   })
 }
-const defaultCenter: LatLngExpression = [42.360718, -71.05891]
 
 const Vehicle = ({ vehicle }: { vehicle: Vehicle }) => {
   const [appState, dispatch] = useContext(StateDispatchContext)
