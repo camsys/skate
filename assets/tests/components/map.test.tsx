@@ -6,11 +6,11 @@ import renderer from "react-test-renderer"
 import Map, {
   //autoCenter,
   //defaultCenter,
-  //strokeOptions,
+  strokeOptions,
 } from "../../src/components/map"
 import { HeadwaySpacing } from "../../src/models/vehicleStatus"
 import { Vehicle } from "../../src/realtime"
-//import { Shape, Stop } from "../../src/schedule"
+import { Shape/*, Stop*/ } from "../../src/schedule"
 //import { defaultSettings } from "../../src/settings"
 //import { State as AppState } from "../../src/state"
 
@@ -394,6 +394,7 @@ describe("latLons", () => {
     expect(latLons(shape)).toEqual(expectedResult)
   })
 })
+*/
 
 describe("strokeOptions", () => {
   test("uses the color for a subway line, defaults to a thinner, opaque line", () => {
@@ -424,4 +425,3 @@ describe("strokeOptions", () => {
     expect(strokeOptions(shuttleShape)).toEqual(expected)
   })
 })
-*/

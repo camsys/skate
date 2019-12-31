@@ -102,15 +102,10 @@ const Vehicle = ({ vehicle }: { vehicle: Vehicle }) => {
   )
 }
 
-const Shape = ({ shape }: { shape: Shape }) => {
-  const positions: LatLngExpression[] = shape.points.map(point => [
-    point.lat,
-    point.lon,
-  ])
-
-  const strokeOptions = shape.color
+export const strokeOptions = ({ color }: Shape): object =>
+  color
     ? {
-        color: shape.color,
+        color: color,
         opacity: 1.0,
         weight: 3,
       }
@@ -120,12 +115,18 @@ const Shape = ({ shape }: { shape: Shape }) => {
         weight: 6,
       }
 
+const Shape = ({ shape }: { shape: Shape }) => {
+  const positions: LatLngExpression[] = shape.points.map(point => [
+    point.lat,
+    point.lon,
+  ])
+
   return (
     <>
       <Polyline
         className="m-vehicle-map__route-shape"
         positions={positions}
-        {...strokeOptions}
+        {...strokeOptions(shape)}
       />
       {(shape.stops || []).map(stop => (
         <CircleMarker
