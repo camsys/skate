@@ -156,7 +156,7 @@ export const autoCenter = (
   } else if (latLngs.length > 1) {
     map.fitBounds(Leaflet.latLngBounds(latLngs), {
       paddingBottomRight: [20, 50],
-      paddingTopLeft: [appState.pickerContainerIsVisible ? 220 : 20, 20],
+      paddingTopLeft: [appState.pickerContainerIsVisible ? 240 : 20, 20],
     })
   }
 }
