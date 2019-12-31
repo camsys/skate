@@ -1,5 +1,7 @@
 import Leaflet, { Map as LeafletMap, LatLngExpression } from "leaflet"
 import "leaflet-defaulticon-compatibility" // see https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-483402699
+// @ts-ignore
+import Control from "react-leaflet-control"
 import React, {
   ReactElement,
   useContext,
@@ -161,6 +163,41 @@ export const autoCenter = (
   }
 }
 
+const RecenterControl = ({turnOnAutoCenter, controlOptions}: {
+  turnOnAutoCenter: () => void,
+  controlOptions: Leaflet.ControlOptions
+}) =>
+  <Control {...controlOptions} >
+    <div
+      className="leaflet-bar leaflet-control m-vehicle-map__recenter-button"
+    >
+      <a
+        href="#"
+        title="Recenter map"
+        role="button"
+        aria-label="Recenter map"
+        onClick={(e) => {
+          e.stopPropagation()
+          e.preventDefault()
+          turnOnAutoCenter()
+        }}
+      >
+        <svg
+          height="30"
+          viewBox="-7 -5 36 36"
+          width="30"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m10 2.7-6.21 16.94a2.33 2.33 0 0 0 1.38 3 2.36 2.36 0 0 0 1.93-.14l4.9-2.67 4.89 2.71a2.34 2.34 0 0 0 3.34-2.8l-5.81-17a2.34 2.34 0 0 0 -4.4 0z"
+            transform="rotate(60, 12, 12)"
+          />
+        </svg>
+      </a>
+    </div>
+  </Control>
+
+
 /*
 const recenterControl = (
   setShouldAutoCenter: (shouldAutoCenter: boolean) => void,
@@ -233,17 +270,12 @@ export const newLeafletMap = (
 */
 
 const Map = (props: Props): ReactElement<HTMLDivElement> => {
-  const [shouldAutoCenter,/* setShouldAutoCenter*/] = useState<boolean>(true)
+  const [shouldAutoCenter, setShouldAutoCenter] = useState<boolean>(true)
   const isAutoCentering: MutableRefObject<boolean> = useRef(false)
   const [appState,] = useContext(StateDispatchContext)
   const mapRef: MutableRefObject<ReactLeafletMap | null> = useRef(null)
 
   useEffect(() => {
-    /*
-    const map =
-      mapState.map ||
-      newLeafletMap(containerRef.current, isAutoCentering, setShouldAutoCenter)
-      */
     const map: ReactLeafletMap | null = mapRef.current
     if (map !== null && shouldAutoCenter) {
       autoCenter(map.leafletElement, props.vehicles, isAutoCentering, appState)
@@ -251,14 +283,6 @@ const Map = (props: Props): ReactElement<HTMLDivElement> => {
   }, [shouldAutoCenter, props.vehicles, appState])
 
   return (
-    /*
-  (
-    <div
-
-      ref={container => (containerRef.current = container)}
-    />
-  )
-  */
     <ReactLeafletMap
       id="id-vehicle-map"
       className="m-vehicle-map"
@@ -270,8 +294,22 @@ const Map = (props: Props): ReactElement<HTMLDivElement> => {
       zoomControl={false}
       center={defaultCenter}
       zoom={13}
+      onmovestart={() => {
+        // If the user drags or zooms, they want manual control of the map.
+        // But don't disable shouldAutoCenter if the move was triggered by an auto center.
+        if (!isAutoCentering.current) {
+          setShouldAutoCenter(false)
+        }
+      }}
+      onmoveend={() => {
+        // Wait until the auto centering is finished to start listening for manual moves again.
+        if (isAutoCentering.current) {
+          isAutoCentering.current = false
+        }
+      }}
     >
       <ZoomControl position="topright" />
+      <RecenterControl turnOnAutoCenter={() => setShouldAutoCenter(true)} controlOptions={{position: "topright"}} />
       <TileLayer
         url="https://mbta-map-tiles-dev.s3.amazonaws.com/osm_tiles/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
