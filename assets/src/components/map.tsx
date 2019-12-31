@@ -202,9 +202,10 @@ const Map = (props: Props): ReactElement<HTMLDivElement> => {
   const mapRef: MutableRefObject<ReactLeafletMap | null> = useRef(null)
 
   useEffect(() => {
-    const map: ReactLeafletMap | null = mapRef.current
-    if (map !== null && shouldAutoCenter) {
-      autoCenter(map.leafletElement, props.vehicles, isAutoCentering, appState)
+    const reactLeafletMap: ReactLeafletMap | null = mapRef.current
+    if (reactLeafletMap !== null && shouldAutoCenter) {
+      const leafletMap: LeafletMap = reactLeafletMap.leafletElement
+      autoCenter(leafletMap, props.vehicles, isAutoCentering, appState)
     }
   }, [shouldAutoCenter, props.vehicles, appState])
 
