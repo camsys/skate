@@ -213,7 +213,6 @@ const Map = (props: Props): ReactElement<HTMLDivElement> => {
 
   return (
     <ReactLeafletMap
-      id="id-vehicle-map"
       className="m-vehicle-map"
       ref={mapRef}
       maxBounds={[
