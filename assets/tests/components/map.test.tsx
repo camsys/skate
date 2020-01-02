@@ -73,6 +73,37 @@ describe("map", () => {
 
     expect(tree).toMatchSnapshot()
   })
+
+  /*
+  test("draws vehicles", () => {
+    const vehicles = [vehicle]
+    const wrapper = mount(<Map vehicles={vehicles}/>)
+
+    expect(wrapper.find(".m-vehicle-map__icon")).toHaveLength(1)
+    expect(wrapper.find(".m-vehicle-map__label")).toHaveLength(1)
+  })
+
+  test("draws shapes", () => {
+    const shape = {
+      id: "shape",
+      points: [
+        {lat: 0, lon: 0},
+        {lat: 0, lon: 0},
+      ],
+      stops: [
+        id: "stop",
+        name: "stop",
+        lat: 0,
+        lon: 0,
+      ],
+    }
+    const vehicles = [vehicle]
+    const wrapper = mount(<Map vehicles={vehicles}/>)
+
+    expect(wrapper.find(".m-vehicle-map__route-shape")).toHaveLength(1)
+    expect(wrapper.find(".m-vehicle-map__stop")).toHaveLength(1)
+  })
+  */
 })
 
 /*
