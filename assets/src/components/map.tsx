@@ -31,7 +31,10 @@ interface Props {
   shapes?: Shape[]
 }
 
-const defaultCenter: LatLngExpression = [42.360718, -71.05891]
+export const defaultCenter: LatLngExpression = {
+  lat: 42.360718,
+  lng: -71.05891,
+}
 
 const makeVehicleIcon = (vehicle: Vehicle): Leaflet.DivIcon => {
   const centerX = 12

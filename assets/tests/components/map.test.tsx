@@ -1,18 +1,17 @@
 //import { mount } from "enzyme"
-//import Leaflet, { Map as LeafletMap } from "leaflet"
-import React from "react"
+import React/*, { MutableRefObject }*/ from "react"
 //import { act } from "react-dom/test-utils"
 import renderer from "react-test-renderer"
 import Map, {
-  //autoCenter,
-  //defaultCenter,
+  autoCenter,
+  defaultCenter,
   strokeOptions,
 } from "../../src/components/map"
 import { HeadwaySpacing } from "../../src/models/vehicleStatus"
 import { Vehicle } from "../../src/realtime"
 import { Shape/*, Stop*/ } from "../../src/schedule"
 //import { defaultSettings } from "../../src/settings"
-//import { State as AppState } from "../../src/state"
+import { State as AppState } from "../../src/state"
 
 // tslint:disable-next-line: no-empty
 //const noop = (): void => {}
@@ -244,14 +243,16 @@ describe("updateShapes", () => {
     expect(shapes.shape1.routeLine.getLatLngs()).toEqual([{ lat: 10, lng: 20 }])
   })
 })
+*/
 
 describe("autoCenter", () => {
+  const Leaflet = jest.requireActual("leaflet")
   const isAutoCentering = { current: false }
   const appState: AppState = { pickerContainerIsVisible: false } as AppState
 
   test("centers the map on a single vehicle", () => {
     document.body.innerHTML = "<div id='map'></div>"
-    const map = newLeafletMap("map", isAutoCentering, noop)
+    const map = Leaflet.map("map")
     autoCenter(map, [vehicle], isAutoCentering, appState)
     expect(map.getCenter()).toEqual({ lat: 42, lng: -71 })
   })
@@ -260,22 +261,20 @@ describe("autoCenter", () => {
     const vehicle1 = { ...vehicle, latitude: 42.0 }
     const vehicle2 = { ...vehicle, latitude: 42.5 }
     document.body.innerHTML = "<div id='map'></div>"
-    const map = newLeafletMap("map", isAutoCentering, noop)
+    const map = Leaflet.map("map")
     autoCenter(map, [vehicle1, vehicle2], isAutoCentering, appState)
     expect(map.getCenter().lat).toBeCloseTo(42.25, 3)
   })
 
   test("does not center the map if there are no vehicles", () => {
     document.body.innerHTML = "<div id='map'></div>"
-    const map = newLeafletMap("map", isAutoCentering, noop)
+    const map = Leaflet.map("map")
     autoCenter(map, [], isAutoCentering, appState)
-    expect(map.getCenter()).toEqual({
-      lat: defaultCenter[0],
-      lng: defaultCenter[1],
-    })
+    expect(map.getCenter()).toEqual(defaultCenter)
   })
 })
 
+/*
 const spyMapResult = (): MutableRefObject<LeafletMap | null> => {
   const result: MutableRefObject<LeafletMap | null> = { current: null }
   const actualMap = Leaflet.map
