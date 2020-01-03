@@ -76,6 +76,19 @@ describe("map", () => {
 
   /*
   test("draws vehicles", () => {
+    /* TODO
+       we need to use the real leaflet to be sure that the markers make it on the map
+       but 2 problems
+       1. using the real leaflet leads to the same "Map container not found"
+          that required mocking leaflet for everything else
+          (where there is no dom node to attach to)
+          even though this test uses enzyme mount (which makes dom nodes)
+          rather than react-test-renderer like the other tests (which makes js instead of dom nodes)
+       2. how do you unmock just for this test?
+          jest.unmock("leaflet") works if you put it at top level,
+          but then you need to remock for just the snapshot test and i don't know how to do that either.
+    jest.unmock("leaflet")
+
     const vehicles = [vehicle]
     const wrapper = mount(<Map vehicles={vehicles}/>)
 
@@ -84,6 +97,9 @@ describe("map", () => {
   })
 
   test("draws shapes", () => {
+    // TODO mocking problems, see above
+    jest.unmock("leaflet")
+
     const shape = {
       id: "shape",
       points: [
@@ -156,6 +172,9 @@ const animationFramePromise = (): Promise<null> => {
 }
 
 describe("auto centering", () => {
+  // This will need to run on a real leaflet instance
+  // But that'll require figuring out how mocking works. See the TODO above
+
   test("auto centers on a vehicle", async () => {
     const mapResult: MutableRefObject<LeafletMap | null> = spyMapResult()
     mount(<Map vehicles={[vehicle]} />)
