@@ -8,13 +8,20 @@ import SettingsPage from "./settingsPage"
 import ShuttleMapPage from "./shuttleMapPage"
 import TabBar from "./tabBar"
 
-const App = (): ReactElement<HTMLDivElement> => {
+interface Props {
+  isSocketConnected: boolean
+}
+
+const App = ({ isSocketConnected }: Props): ReactElement<HTMLDivElement> => {
   const [{ pickerContainerIsVisible }] = useContext(StateDispatchContext)
 
   return (
     <BrowserRouter>
       <div className="m-app">
-        <TabBar pickerContainerIsVisible={pickerContainerIsVisible} />
+        <TabBar
+          pickerContainerIsVisible={pickerContainerIsVisible}
+          isSocketConnected={isSocketConnected}
+        />
         <BrowserRoute exact={true} path="/" component={LadderPage} />
         <BrowserRoute
           exact={true}

@@ -9,7 +9,7 @@ describe("tabBar", () => {
     const tree = renderer
       .create(
         <BrowserRouter>
-          <TabBar pickerContainerIsVisible={true} />
+          <TabBar pickerContainerIsVisible={true} isSocketConnected={false} />
         </BrowserRouter>
       )
       .toJSON()
@@ -20,7 +20,7 @@ describe("tabBar", () => {
   it("sets class to visible when picker is visible", () => {
     const wrapper = mount(
       <BrowserRouter>
-        <TabBar pickerContainerIsVisible={true} />
+        <TabBar pickerContainerIsVisible={true} isSocketConnected={false} />
       </BrowserRouter>
     )
     expect(wrapper.find(".m-tab-bar").hasClass("visible")).toBe(true)
@@ -30,7 +30,7 @@ describe("tabBar", () => {
   it("sets class to hidden when picker is hidden", () => {
     const wrapper = mount(
       <BrowserRouter>
-        <TabBar pickerContainerIsVisible={false} />
+        <TabBar pickerContainerIsVisible={false} isSocketConnected={false} />
       </BrowserRouter>
     )
     expect(wrapper.find(".m-tab-bar").hasClass("hidden")).toBe(true)
@@ -44,7 +44,7 @@ describe("tabBar", () => {
 
     const wrapper = mount(
       <BrowserRouter>
-        <TabBar pickerContainerIsVisible={false} />
+        <TabBar pickerContainerIsVisible={false} isSocketConnected={false} />
       </BrowserRouter>
     )
 

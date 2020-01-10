@@ -5,6 +5,8 @@ import useSocket, { readUserToken } from "../../src/hooks/useSocket"
 
 const mockSocket = {
   connect: jest.fn(),
+  onOpen: jest.fn(),
+  onClose: jest.fn(),
 }
 
 jest.mock("phoenix", () => ({
@@ -17,7 +19,7 @@ describe("useVehicles", () => {
     const { result } = renderHook(() => useSocket())
 
     expect(mockSocket.connect).toHaveBeenCalled()
-    expect(result.current).toBe(mockSocket)
+    expect(result.current.socket).toBe(mockSocket)
   })
 })
 

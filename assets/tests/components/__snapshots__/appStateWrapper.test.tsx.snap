@@ -126,6 +126,9 @@ exports[`renders 1`] = `
       </li>
     </ul>
     <div
+      className="m-tab-bar__connection-status m-tab-bar__connection-status__disconnected"
+    />
+    <div
       className="m-tab-bar__t-logo"
     >
       <svg

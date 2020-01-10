@@ -14,7 +14,7 @@ const AppStateWrapper = (): JSX.Element => {
   const [state, dispatch] = usePersistedStateReducer(reducer, initialState)
   const { selectedRouteIds } = state
 
-  const socket = useSocket()
+  const { socket, isSocketConnected } = useSocket()
   const vehiclesByRouteId = useVehicles(socket, selectedRouteIds)
   const shuttles = useShuttleVehicles(socket)
 
@@ -23,7 +23,7 @@ const AppStateWrapper = (): JSX.Element => {
       <SocketProvider socket={socket}>
         <VehiclesByRouteIdProvider vehiclesByRouteId={vehiclesByRouteId}>
           <ShuttleVehiclesProvider shuttles={shuttles}>
-            <App />
+            <App isSocketConnected={isSocketConnected} />
           </ShuttleVehiclesProvider>
         </VehiclesByRouteIdProvider>
       </SocketProvider>

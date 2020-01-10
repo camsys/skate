@@ -9,7 +9,7 @@ jest.mock("../../src/laboratoryFeatures", () => ({
 
 describe("App", () => {
   test("renders", () => {
-    const tree = renderer.create(<App />).toJSON()
+    const tree = renderer.create(<App isSocketConnected={false} />).toJSON()
     expect(tree).toMatchSnapshot()
   })
 })

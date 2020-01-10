@@ -4,77 +4,88 @@ import { ladderIcon, mapIcon, searchIcon } from "../helpers/icon"
 
 interface Props {
   pickerContainerIsVisible: boolean
+  isSocketConnected: boolean
 }
 
 const TabBar = ({
   pickerContainerIsVisible,
-}: Props): ReactElement<HTMLDivElement> => (
-  <div
-    className={`m-tab-bar ${pickerContainerIsVisible ? "visible" : "hidden"}`}
-  >
-    <button
-      className="m-tab-bar__logo"
-      onClick={() => window.location.reload()}
+  isSocketConnected,
+}: Props): ReactElement<HTMLDivElement> => {
+  const connectionStatus = isSocketConnected ? "connected" : "disconnected"
+
+  return (
+    <div
+      className={`m-tab-bar ${pickerContainerIsVisible ? "visible" : "hidden"}`}
     >
-      {skateLogo}
-    </button>
-    <ul className="m-tab-bar__links">
-      <li>
-        <NavLink
-          activeClassName="m-tab-bar__link--active"
-          className="m-tab-bar__link"
-          exact={true}
-          title="Routes"
-          to="/"
-        >
-          {ladderIcon("m-tab-bar__icon")}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          activeClassName="m-tab-bar__link--active"
-          className="m-tab-bar__link"
-          exact={true}
-          title="Shuttle Map"
-          to="/shuttle-map"
-        >
-          {mapIcon("m-tab-bar__icon")}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          activeClassName="m-tab-bar__link--active"
-          className="m-tab-bar__link"
-          title="Settings"
-          to="/settings"
-        >
-          {settingsIcon}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          activeClassName="m-tab-bar__link--active"
-          className="m-tab-bar__link"
-          title="About Skate"
-          to="/about"
-        >
-          {aboutIcon}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          activeClassName="m-tab-bar__link--active"
-          className="m-tab-bar__link"
-          title="Search"
-          to="/search"
-        >
-          {searchIcon("m-tab-bar__icon")}
-        </NavLink>
-      </li>
-    </ul>
-    <div className="m-tab-bar__t-logo">{tLogo}</div>
-  </div>
-)
+      <button
+        className="m-tab-bar__logo"
+        onClick={() => window.location.reload()}
+      >
+        {skateLogo}
+      </button>
+      <ul className="m-tab-bar__links">
+        <li>
+          <NavLink
+            activeClassName="m-tab-bar__link--active"
+            className="m-tab-bar__link"
+            exact={true}
+            title="Routes"
+            to="/"
+          >
+            {ladderIcon("m-tab-bar__icon")}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            activeClassName="m-tab-bar__link--active"
+            className="m-tab-bar__link"
+            exact={true}
+            title="Shuttle Map"
+            to="/shuttle-map"
+          >
+            {mapIcon("m-tab-bar__icon")}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            activeClassName="m-tab-bar__link--active"
+            className="m-tab-bar__link"
+            title="Settings"
+            to="/settings"
+          >
+            {settingsIcon}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            activeClassName="m-tab-bar__link--active"
+            className="m-tab-bar__link"
+            title="About Skate"
+            to="/about"
+          >
+            {aboutIcon}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            activeClassName="m-tab-bar__link--active"
+            className="m-tab-bar__link"
+            title="Search"
+            to="/search"
+          >
+            {searchIcon("m-tab-bar__icon")}
+          </NavLink>
+        </li>
+      </ul>
+
+      <div
+        className={`m-tab-bar__connection-status m-tab-bar__connection-status__${connectionStatus}`}
+      />
+
+      <div className="m-tab-bar__t-logo">{tLogo}</div>
+    </div>
+  )
+}
 
 const skateLogo = (
   <svg
