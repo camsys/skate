@@ -1,0 +1,32 @@
+.m-data-status-banner {
+  width: 100%;
+
+  .m-close-button {
+    padding: 0.625rem;
+    position: absolute;
+    right: 0rem;
+    top: 0;
+  }
+}
+
+.m-data-status-banner--outage {
+  background-color: $black;
+  color: $color-font-light;
+}
+
+.m-data-status-banner--restored {
+  background-color: $color-secondary-light;
+  color: $color-font-grey;
+}
+
+.m-data-status-banner__heading {
+  @include font-emph;
+  padding-left: 0.625rem;
+  padding-top: 0.625rem;
+}
+
+.m-data-status-banner__content {
+  padding-bottom: 0.625rem;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
