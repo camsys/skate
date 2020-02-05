@@ -1,5 +1,6 @@
 defmodule Realtime.ServerTest do
   use ExUnit.Case, async: true
+  import Test.Support.Helpers
 
   alias Realtime.{Ghost, Server, Vehicle}
 
@@ -184,6 +185,26 @@ defmodule Realtime.ServerTest do
 
       assert_receive {:new_realtime_data, lookup_args}
       assert Server.lookup(lookup_args) == [@shuttle]
+    end
+  end
+
+  describe "subscribe_to_data_status" do
+    setup do
+      {:ok, server_pid} = Server.start_link([])
+      %{server_pid: server_pid}
+    end
+
+    test "gets the current data_status when subscribing", %{server_pid: server_pid} do
+      reassign_env(:skate, :data_status_fn, fn -> :outage end)
+      :ok = Server.update({%{}, []}, server_pid)
+      assert Server.subscribe_to_data_status(server_pid) == :outage
+    end
+
+    test "clients get updated search results pushed to them", %{server_pid: server_pid} do
+      reassign_env(:skate, :data_status_fn, fn -> :good end)
+      _ = Server.subscribe_to_data_status(server_pid)
+      :ok = Server.update({%{}, []}, server_pid)
+      assert_receive {:new_data_status, :good}
     end
   end
 
