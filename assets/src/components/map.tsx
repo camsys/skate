@@ -240,7 +240,6 @@ export const autoCenter = (
   map: LeafletMap,
   vehicles: Vehicle[],
   isAutoCentering: MutableRefObject<boolean>,
-  appState: AppState
 ): void => {
   const latLngs: LatLng[] = vehicles.map(vehicle =>
     Leaflet.latLng(vehicle.latitude, vehicle.longitude)
@@ -253,7 +252,7 @@ export const autoCenter = (
   } else if (latLngs.length > 1) {
     map.fitBounds(Leaflet.latLngBounds(latLngs), {
       paddingBottomRight: [20, 50],
-      paddingTopLeft: [appState.pickerContainerIsVisible ? 220 : 20, 20],
+      paddingTopLeft: [20, 20],
     })
   }
 }
@@ -379,7 +378,7 @@ const Map = (props: Props): ReactElement<HTMLDivElement> => {
         : {}
 
     if (shouldAutoCenter) {
-      autoCenter(map, props.vehicles, isAutoCentering, appState)
+      autoCenter(map, props.vehicles, isAutoCentering)
     }
 
     setMapState({ map, markers, shapes })
