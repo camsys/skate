@@ -59,7 +59,7 @@ const LadderPage = (): ReactElement<HTMLDivElement> => {
   )
 
   return (
-    <div className="m-ladder-page">
+    <div className="c-page m-ladder-page">
       <RoutePicker routes={routes} selectedRouteIds={selectedRouteIds} />
 
       <VehiclesByRouteIdProvider vehiclesByRouteId={vehiclesByRouteId}>
