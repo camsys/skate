@@ -58,6 +58,7 @@ describe("ladder", () => {
         scheduledLocation: null,
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
       {
         id: "downward",
@@ -107,6 +108,7 @@ describe("ladder", () => {
         },
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
       {
         id: "notimepoint",
@@ -141,6 +143,7 @@ describe("ladder", () => {
         scheduledLocation: null,
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
     ]
     const ladderDirection = LadderDirection.ZeroToOne
@@ -177,6 +180,7 @@ describe("ladder", () => {
         fractionUntilTimepoint: 0.0,
       },
       routeStatus: "on_route",
+      blockWaivers: null,
     }
 
     const ladderDirection = LadderDirection.ZeroToOne
@@ -234,6 +238,7 @@ describe("ladder", () => {
         scheduledLocation: null,
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
       {
         id: "downward",
@@ -283,6 +288,7 @@ describe("ladder", () => {
         },
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
     ]
     const ladderDirection = LadderDirection.ZeroToOne
@@ -352,6 +358,7 @@ describe("ladder", () => {
         },
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
     ]
     const ladderDirection = LadderDirection.OneToZero
@@ -408,6 +415,7 @@ describe("ladder", () => {
         scheduledLocation: null,
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
       {
         id: "downward",
@@ -457,6 +465,7 @@ describe("ladder", () => {
         },
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
     ]
     const ladderDirection = LadderDirection.ZeroToOne
@@ -515,6 +524,7 @@ describe("ladder", () => {
       scheduledLocation: null,
       routeStatus: "on_route",
       endOfTripType: "another_trip",
+      blockWaivers: null,
     }
 
     const ladderDirection = LadderDirection.ZeroToOne
@@ -598,6 +608,7 @@ describe("ladder", () => {
         scheduledLocation: null,
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
     ]
     const ladderDirection = LadderDirection.ZeroToOne
@@ -667,6 +678,7 @@ describe("ladder", () => {
         },
         routeStatus: "on_route",
         endOfTripType: "another_trip",
+        blockWaivers: null,
       },
     ]
     const ladderDirection = LadderDirection.OneToZero
@@ -745,6 +757,7 @@ describe("ladder", () => {
       },
       routeStatus: "on_route",
       endOfTripType: "another_trip",
+      blockWaivers: null,
     }
 
     const timepoints = ["t0", "t1", "t2"]

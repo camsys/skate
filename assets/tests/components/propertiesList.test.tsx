@@ -57,6 +57,7 @@ const vehicle: Vehicle = {
   scheduledLocation: null,
   routeStatus: "on_route",
   endOfTripType: "another_trip",
+  blockWaivers: null,
 }
 
 describe("PropertiesList", () => {
@@ -84,6 +85,7 @@ describe("PropertiesList", () => {
         fractionUntilTimepoint: 0.0,
       },
       routeStatus: "on_route",
+      blockWaivers: null,
     }
 
     const tree = renderer

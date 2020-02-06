@@ -81,6 +81,7 @@ describe("SearchResults", () => {
       scheduledLocation: null,
       routeStatus: "on_route",
       endOfTripType: "another_trip",
+      blockWaivers: null,
     }
     const ghost: Ghost = {
       id: "ghost-trip",
@@ -97,6 +98,7 @@ describe("SearchResults", () => {
         fractionUntilTimepoint: 0.0,
       },
       routeStatus: "on_route",
+      blockWaivers: null,
     }
 
     const tree = renderer
@@ -161,6 +163,7 @@ describe("SearchResults", () => {
       scheduledLocation: null,
       routeStatus: "on_route",
       endOfTripType: "another_trip",
+      blockWaivers: null,
     }
     const ghost: Ghost = {
       id: "ghost-trip",
@@ -177,6 +180,7 @@ describe("SearchResults", () => {
         fractionUntilTimepoint: 0.0,
       },
       routeStatus: "on_route",
+      blockWaivers: null,
     }
 
     const stateWithSelected = {
@@ -247,6 +251,7 @@ describe("SearchResults", () => {
       scheduledLocation: null,
       routeStatus: "on_route",
       endOfTripType: "another_trip",
+      blockWaivers: null,
     }
     const wrapper = mount(
       <StateDispatchProvider state={state} dispatch={testDispatch}>

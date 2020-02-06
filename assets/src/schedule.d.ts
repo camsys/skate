@@ -54,4 +54,8 @@ export type TimepointsByRouteId = ByRouteId<LoadableTimepoints>
 
 export type TripId = string
 
+export interface ByTripId<T> {
+  [tripId: string]: T
+}
+
 export type ViaVariant = string

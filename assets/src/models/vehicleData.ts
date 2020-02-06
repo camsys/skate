@@ -1,5 +1,6 @@
 import { HeadwaySpacing } from "../models/vehicleStatus"
 import {
+  BlockWaiver,
   DataDiscrepancy,
   EndOfTripType,
   Ghost,
@@ -11,7 +12,7 @@ import {
   VehicleStopStatus,
   VehicleTimepointStatus,
 } from "../realtime.d"
-import { DirectionId, RouteId } from "../schedule.d"
+import { ByTripId, DirectionId, RouteId, TripId } from "../schedule.d"
 
 type RawHeadwaySpacing =
   | "very_bunched"
@@ -52,6 +53,7 @@ export interface VehicleData {
   scheduled_location: VehicleScheduledLocationData | null
   route_status: RouteStatus
   end_of_trip_type: EndOfTripType
+  block_waivers: ByTripId<BlockWaiverData> | null
 }
 
 export interface GhostData {
@@ -66,6 +68,7 @@ export interface GhostData {
   layover_departure_time: number | null
   scheduled_timepoint_status: VehicleTimepointStatusData
   route_status: RouteStatus
+  block_waivers: ByTripId<BlockWaiverData> | null
 }
 
 export type VehicleOrGhostData = VehicleData | GhostData
@@ -99,6 +102,13 @@ interface VehicleStopStatusData {
 interface VehicleTimepointStatusData {
   timepoint_id: string
   fraction_until_timepoint: number
+}
+
+interface BlockWaiverData {
+  trip_id: TripId
+  start_time: number
+  end_time: number
+  remark: string | null
 }
 
 export const vehicleFromData = (vehicleData: VehicleData): Vehicle => ({
@@ -135,6 +145,7 @@ export const vehicleFromData = (vehicleData: VehicleData): Vehicle => ({
     vehicleScheduledLocationFromData(vehicleData.scheduled_location),
   routeStatus: vehicleData.route_status,
   endOfTripType: vehicleData.end_of_trip_type,
+  blockWaivers: blockWaiversFromData(vehicleData.block_waivers),
 })
 
 export const ghostFromData = (ghostData: GhostData): Ghost => ({
@@ -151,6 +162,7 @@ export const ghostFromData = (ghostData: GhostData): Ghost => ({
     ghostData.scheduled_timepoint_status
   ),
   routeStatus: ghostData.route_status,
+  blockWaivers: blockWaiversFromData(ghostData.block_waivers),
 })
 
 const isGhost = (vehicleOrGhostData: VehicleOrGhostData): boolean =>
@@ -221,4 +233,29 @@ const vehicleTimepointStatusFromData = (
 ): VehicleTimepointStatus => ({
   timepointId: vehicleTimepointStatusData.timepoint_id,
   fractionUntilTimepoint: vehicleTimepointStatusData.fraction_until_timepoint,
+})
+
+const blockWaiversFromData = (
+  blockWaiversData: ByTripId<BlockWaiverData> | null
+): ByTripId<BlockWaiver> | null => {
+  if (blockWaiversData === null) {
+    return null
+  }
+
+  return Object.keys(blockWaiversData).reduce(
+    (acc: ByTripId<BlockWaiver>, tripId: TripId) => ({
+      ...acc,
+      [tripId]: blockWaiverFromData(blockWaiversData[tripId]),
+    }),
+    {}
+  )
+}
+
+const blockWaiverFromData = (
+  blockWaiverData: BlockWaiverData
+): BlockWaiver => ({
+  tripId: blockWaiverData.trip_id,
+  startTime: blockWaiverData.start_time,
+  endTime: blockWaiverData.end_time,
+  remark: blockWaiverData.remark,
 })

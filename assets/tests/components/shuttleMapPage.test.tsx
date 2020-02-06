@@ -49,6 +49,7 @@ const shuttle: Vehicle = {
   scheduledLocation: null,
   routeStatus: "on_route",
   endOfTripType: "another_trip",
+  blockWaivers: null,
 }
 
 describe("Shuttle Map Page", () => {

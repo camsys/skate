@@ -19,6 +19,7 @@ const ghost: Ghost = {
     fractionUntilTimepoint: 0.0,
   },
   routeStatus: "on_route",
+  blockWaivers: null,
 }
 
 const route: Route = {

@@ -63,6 +63,7 @@ const vehicles: Vehicle[] = [
     scheduledLocation: null,
     routeStatus: "on_route",
     endOfTripType: "another_trip",
+    blockWaivers: null,
   },
   {
     id: "y0479",
@@ -112,6 +113,7 @@ const vehicles: Vehicle[] = [
     },
     routeStatus: "on_route",
     endOfTripType: "another_trip",
+    blockWaivers: null,
   },
 ]
 
@@ -183,6 +185,7 @@ describe("routeLadder", () => {
         fractionUntilTimepoint: 0.0,
       },
       routeStatus: "on_route",
+      blockWaivers: null,
     }
 
     const tree = renderer
@@ -367,6 +370,7 @@ describe("routeLadder", () => {
       scheduledLocation: null,
       routeStatus: "pulling_out",
       endOfTripType: "another_trip",
+      blockWaivers: null,
     }
 
     const wrapper = mount(
@@ -496,6 +500,7 @@ describe("groupByPosition", () => {
           fractionUntilTimepoint: 0.2,
         },
       },
+      blockWaivers: null,
     } as Vehicle
 
     const expectedGhost: Ghost = {
@@ -510,6 +515,7 @@ describe("groupByPosition", () => {
       layoverDepartureTime: null,
       scheduledTimepointStatus: vehicle.scheduledLocation!.timepointStatus,
       routeStatus: "on_route",
+      blockWaivers: null,
     }
 
     expect(groupByPosition([vehicle], "1", LadderDirection.ZeroToOne)).toEqual({
@@ -544,6 +550,7 @@ describe("groupByPosition", () => {
           fractionUntilTimepoint: 0.2,
         },
       },
+      blockWaivers: null,
     } as Vehicle
 
     const expectedGhost: Ghost = {
@@ -558,6 +565,7 @@ describe("groupByPosition", () => {
       layoverDepartureTime: null,
       scheduledTimepointStatus: vehicle.scheduledLocation!.timepointStatus,
       routeStatus: "on_route",
+      blockWaivers: null,
     }
 
     expect(groupByPosition([vehicle], "1", LadderDirection.ZeroToOne)).toEqual({
@@ -592,6 +600,7 @@ describe("groupByPosition", () => {
           fractionUntilTimepoint: 0.2,
         },
       },
+      blockWaivers: null,
     } as Vehicle
 
     const expectedGhost: Ghost = {
@@ -609,6 +618,7 @@ describe("groupByPosition", () => {
         timepointId: "timepointId",
       },
       routeStatus: "on_route",
+      blockWaivers: null,
     }
 
     expect(groupByPosition([vehicle], "1", LadderDirection.ZeroToOne)).toEqual({

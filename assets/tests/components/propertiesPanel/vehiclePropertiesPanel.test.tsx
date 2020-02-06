@@ -67,6 +67,7 @@ const vehicle: Vehicle = {
   scheduledLocation: null,
   routeStatus: "on_route",
   endOfTripType: "another_trip",
+  blockWaivers: null,
 }
 
 describe("VehiclePropertiesPanel", () => {

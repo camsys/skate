@@ -87,6 +87,7 @@ const vehicle: Vehicle = {
   },
   routeStatus: "on_route",
   endOfTripType: "another_trip",
+  blockWaivers: null,
 }
 const ghost: Ghost = {
   id: "ghost-trip",
@@ -103,6 +104,7 @@ const ghost: Ghost = {
     fractionUntilTimepoint: 0.0,
   },
   routeStatus: "on_route",
+  blockWaivers: null,
 }
 
 describe("isVehicle", () => {

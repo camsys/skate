@@ -128,6 +128,7 @@ describe("useSearchResults", () => {
         trip_id: "t1",
         via_variant: "X",
         route_status: "on_route",
+        block_waivers: null,
       } as VehicleData,
     ]
     const vehicles: VehicleOrGhost[] = [
@@ -204,6 +205,7 @@ describe("useSearchResults", () => {
           },
         },
         routeStatus: "on_route",
+        blockWaivers: null,
       } as Vehicle,
     ]
 
