@@ -1,4 +1,5 @@
 import {
+  hasBlockWaivers,
   isGhost,
   isShuttle,
   isVehicle,
@@ -134,6 +135,28 @@ describe("isShuttle", () => {
 
     expect(isShuttle(shuttle)).toBeTruthy()
     expect(isShuttle(notShuttle)).toBeFalsy()
+  })
+})
+
+describe("hasBlockWaivers", () => {
+  test("returns true if the vehicle or ghost has block waivers", () => {
+    const vehicleWithBlockWaivers = {
+      ...vehicle,
+      blockWaivers: {
+        trip: {
+          tripId: "trip",
+          startTime: 1,
+          endTime: 5,
+          remark: "test block waiver",
+        },
+      },
+    }
+
+    expect(hasBlockWaivers(vehicleWithBlockWaivers)).toBeTruthy()
+  })
+
+  test("returns false if the vehicle or ghost has no block waivers", () => {
+    expect(hasBlockWaivers(vehicle)).toBeFalsy()
   })
 })
 

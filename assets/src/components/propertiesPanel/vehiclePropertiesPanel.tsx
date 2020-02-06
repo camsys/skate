@@ -1,11 +1,16 @@
 import React, { useState } from "react"
 import useInterval from "../../hooks/useInterval"
 import { useTripShape } from "../../hooks/useShapes"
-import { isShuttle, shouldShowHeadwayDiagram } from "../../models/vehicle"
-import { DataDiscrepancy, Vehicle } from "../../realtime"
-import { Route, Shape } from "../../schedule"
+import {
+  hasBlockWaivers,
+  isShuttle,
+  shouldShowHeadwayDiagram,
+} from "../../models/vehicle"
+import { BlockWaiver, DataDiscrepancy, Vehicle } from "../../realtime"
+import { ByTripId, Route, Shape } from "../../schedule"
 import Map from "../map"
 import PropertiesList from "../propertiesList"
+import BlockWaivers from "./blockWaivers"
 import Header from "./header"
 import HeadwayDiagram from "./headwayDiagram"
 
@@ -115,6 +120,12 @@ const shouldShowDataDiscrepancies = ({ dataDiscrepancies }: Vehicle): boolean =>
 const VehiclePropertiesPanel = ({ selectedVehicle, route }: Props) => (
   <div className="m-vehicle-properties-panel">
     <Header vehicle={selectedVehicle} route={route} />
+
+    {hasBlockWaivers(selectedVehicle) && (
+      <BlockWaivers
+        blockWaivers={selectedVehicle.blockWaivers as ByTripId<BlockWaiver>}
+      />
+    )}
 
     {shouldShowHeadwayDiagram(selectedVehicle) && (
       <HeadwayDiagram vehicle={selectedVehicle} />
