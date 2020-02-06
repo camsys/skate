@@ -46,6 +46,19 @@ body {
 }
 
 .m-app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.m-app__banner {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.m-app__main {
   display: flex;
   position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
 }

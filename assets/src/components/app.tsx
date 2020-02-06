@@ -10,6 +10,7 @@ import SearchPage from "./searchPage"
 import SettingsPage from "./settingsPage"
 import ShuttleMapPage from "./shuttleMapPage"
 import TabBar from "./tabBar"
+import DataStatusBanner from "./dataStatusBanner"
 
 const App = (): ReactElement<HTMLDivElement> => {
   const [{ pickerContainerIsVisible }] = useContext(StateDispatchContext)
@@ -18,19 +19,24 @@ const App = (): ReactElement<HTMLDivElement> => {
   return (
     <BrowserRouter>
       <div className="m-app">
-        <TabBar pickerContainerIsVisible={pickerContainerIsVisible} />
-        <BrowserRoute exact={true} path="/" component={LadderPage} />
-        <BrowserRoute
-          exact={true}
-          path="/shuttle-map"
-          component={ShuttleMapPage}
-        />
-        <BrowserRoute exact={true} path="/settings" component={SettingsPage} />
-        <BrowserRoute path="/about" component={AboutPage} />
-        <BrowserRoute exact={true} path="/search" component={SearchPage} />
-        {connectionStatus === ConnectionStatus.Disconnected ? (
-          <DisconnectedModal />
-        ) : null}
+        <div className="m-app__banner">
+          <DataStatusBanner />
+        </div>
+        <div className="m-app__main">
+          <TabBar pickerContainerIsVisible={pickerContainerIsVisible} />
+          <BrowserRoute exact={true} path="/" component={LadderPage} />
+          <BrowserRoute
+            exact={true}
+            path="/shuttle-map"
+            component={ShuttleMapPage}
+          />
+          <BrowserRoute exact={true} path="/settings" component={SettingsPage} />
+          <BrowserRoute path="/about" component={AboutPage} />
+          <BrowserRoute exact={true} path="/search" component={SearchPage} />
+          {connectionStatus === ConnectionStatus.Disconnected ? (
+            <DisconnectedModal />
+          ) : null}
+        </div>
       </div>
     </BrowserRouter>
   )
