@@ -3,6 +3,10 @@
   transition: margin-left 0.2s ease-in-out;
   width: 100%;
 
+  .m-picker-container {
+    z-index: 620;
+  }
+
   .m-tab-bar.hidden + & {
     margin-left: 0;
   }
