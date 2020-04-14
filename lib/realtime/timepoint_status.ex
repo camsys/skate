@@ -27,20 +27,35 @@ defmodule Realtime.TimepointStatus do
   def timepoint_status(stop_times, stop_id) do
     {past_stop_times, future_stop_times} = Enum.split_while(stop_times, &(&1.stop_id != stop_id))
 
-    case Enum.find(future_stop_times, &StopTime.is_timepoint?(&1)) do
-      %StopTime{timepoint_id: next_timepoint_id} ->
-        # past_count needs +1 for the step between the current timepoint and the first of the past stops
-        past_count = count_to_timepoint(Enum.reverse(past_stop_times)) + 1
-        future_count = count_to_timepoint(future_stop_times)
-
-        %{
-          timepoint_id: next_timepoint_id,
-          fraction_until_timepoint: future_count / (future_count + past_count)
-        }
-
-      nil ->
-        nil
+    if length(future_stop_times) == 0 || length(past_stop_times) do
+      nil
+    else
+      %{
+        timepoint_id: future_stop_times,
+        fraction_until_timepoint: div(length(future_stop_times), (length(future_stop_times) + length(past_stop_times))),
+        message: "stopid #{stop_id} future #{length(future_stop_times)} / #{length(past_stop_times)}"
+      }
     end
+
+#    case Enum.find(future_stop_times, &StopTime.is_timepoint?(&1)) do
+#      %StopTime{timepoint_id: next_timepoint_id} ->
+#        # past_count needs +1 for the step between the current timepoint and the first of the past stops
+#        past_count = count_to_timepoint(Enum.reverse(past_stop_times)) + 1
+#        future_count = count_to_timepoint(future_stop_times)
+#
+#        %{
+#          timepoint_id: next_timepoint_id,
+#          fraction_until_timepoint: future_count / (future_count + past_count),
+#          message: "stop_id success #{stop_id}"
+#        }
+#
+#      nil ->
+#        %{
+#          timepoint_id: nil,
+#          fraction_until_timepoint: nil,
+#          message: "stop_id failure #{stop_id}"
+#        }
+#    end
   end
 
   @doc """
@@ -85,7 +100,6 @@ defmodule Realtime.TimepointStatus do
 
           _ ->
             timepoint_status = scheduled_timepoint_status(timepoints, now_time_of_day)
-
             %{
               route_id: trip.route_id,
               direction_id: trip.direction_id,
@@ -107,14 +121,17 @@ defmodule Realtime.TimepointStatus do
         # Trip isn't scheduled to have started yet
         %{
           timepoint_id: List.first(timepoints).timepoint_id,
-          fraction_until_timepoint: 0.0
+          fraction_until_timepoint: 0.0,
+          message: "not started"
         }
 
       now >= List.last(timepoints).time ->
         # Trip is scheduled to have finished
         %{
           timepoint_id: List.last(timepoints).timepoint_id,
-          fraction_until_timepoint: 0.0
+          fraction_until_timepoint: 0.0,
+          message: "finished"
+
         }
 
       true ->
@@ -128,15 +145,16 @@ defmodule Realtime.TimepointStatus do
           timepoint_id: next_timepoint.timepoint_id,
           fraction_until_timepoint:
             (next_timepoint.time - now) /
-              (next_timepoint.time - previous_timepoint.time)
+              (next_timepoint.time - previous_timepoint.time),
+           message: " between #{previous_timepoint} and #{next_timepoint}"
         }
     end
   end
 
-  @spec count_to_timepoint([StopTime.t()]) :: non_neg_integer()
-  defp count_to_timepoint(stop_times) do
-    count = Enum.find_index(stop_times, &StopTime.is_timepoint?(&1))
-
-    if is_number(count), do: count, else: length(stop_times)
-  end
+#  @spec count_to_timepoint([StopTime.t()]) :: non_neg_integer()
+#  defp count_to_timepoint(stop_times) do
+#    count = Enum.find_index(stop_times, &StopTime.is_timepoint?(&1))
+#
+#    if is_number(count), do: count, else: length(stop_times)
+#  end
 end

@@ -334,14 +334,24 @@ defmodule Gtfs do
     gtfs_file_names = [
       "calendar.txt",
       "calendar_dates.txt",
-      "directions.txt",
       "routes.txt",
-      "route_patterns.txt",
       "shapes.txt",
       "stop_times.txt",
       "stops.txt",
       "trips.txt"
     ]
+
+#    xgtfs_file_names = [
+#      "calendar.txt",
+#      "calendar_dates.txt",
+#      "directions.txt",
+#      "routes.txt",
+#      "route_patterns.txt",
+#      "shapes.txt",
+#      "stop_times.txt",
+#      "stops.txt",
+#      "trips.txt"
+#    ]
 
     hastus_file_names = [
       "trips.csv"

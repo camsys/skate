@@ -28,11 +28,12 @@ const vehicleProperties = (vehicle: Vehicle): Property[] => {
     {
       label: "Vehicle",
       value: label,
-    },
-    {
-      label: "Operator",
-      value: `${operatorName} #${operatorId}`,
-    },
+    }
+    // ,
+    // {
+    //   label: "Operator",
+    //   value: `${operatorName} #${operatorId}`,
+    // },
   ]
 }
 

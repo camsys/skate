@@ -234,7 +234,8 @@ export const updateShapes = (
   )
 }
 
-export const defaultCenter: [number, number] = [42.360718, -71.05891]
+//export const defaultCenter: [number, number] = [42.360718, -71.05891]
+export const defaultCenter: [number, number] = [38.9101, -77.0147]
 
 export const autoCenter = (
   map: LeafletMap,
@@ -307,13 +308,13 @@ export const newLeafletMap = (
 ): LeafletMap => {
   const map: LeafletMap = Leaflet.map(container, {
     maxBounds: [
-      [41.2, -72],
-      [43, -69.8],
+      [38.2, -78],
+      [41, -76],
     ],
     center: undefined,
     layers: [
       Leaflet.tileLayer(
-        `https://mbta-map-tiles-dev.s3.amazonaws.com/osm_tiles/{z}/{x}/{y}.png`,
+        `http://b.tile.osm.org/{z}/{x}/{y}.png`,
         {
           attribution:
             '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',

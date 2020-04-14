@@ -11,7 +11,7 @@ defmodule Gtfs.StopTime do
   @type t :: %__MODULE__{
           stop_id: Stop.id(),
           time: Util.Time.time_of_day(),
-          timepoint_id: timepoint_id() | nil
+          timepoint_id: timepoint_id() | Stop.id()
         }
 
   @enforce_keys [

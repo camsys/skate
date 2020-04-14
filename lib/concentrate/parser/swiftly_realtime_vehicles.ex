@@ -18,7 +18,8 @@ defmodule Concentrate.Parser.SwiftlyRealtimeVehicles do
   end
 
   @spec decode_response(map()) :: [VehiclePosition.t()]
-  defp decode_response(%{"data" => %{"vehicles" => vehicles}}), do: decode_vehicles(vehicles)
+#  defp decode_response(%{"data" => %{"vehicles" => vehicles}}), do: decode_vehicles(vehicles)
+  defp decode_response(%{"vehicles" => vehicles}), do: decode_vehicles(vehicles)
 
   @spec decode_vehicles([map()]) :: [VehiclePosition.t()]
   defp decode_vehicles(vehicles), do: Enum.map(vehicles, &decode_vehicle/1)
@@ -30,15 +31,15 @@ defmodule Concentrate.Parser.SwiftlyRealtimeVehicles do
 
     VehiclePosition.new(
       id: Map.get(vehicle_data, "id"),
-      trip_id: Map.get(vehicle_data, "tripId"),
+      trip_id: Map.get(vehicle_data, "trip"),
       stop_id: Map.get(vehicle_data, "nextStopId"),
       latitude: Map.get(loc, "lat"),
       longitude: Map.get(loc, "lon"),
       last_updated: Map.get(loc, "time"),
       speed: Map.get(loc, "speed"),
       bearing: Map.get(loc, "heading"),
-      block_id: Map.get(vehicle_data, "blockId"),
-      run_id: Map.get(vehicle_data, "runId"),
+      block_id: Map.get(vehicle_data, "block"),
+      run_id: Map.get(vehicle_data, "block"),
       operator_id: operator_id,
       operator_name: operator_name,
       stop_name: Map.get(vehicle_data, "nextStopName"),
