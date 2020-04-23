@@ -37,7 +37,7 @@ defmodule Concentrate.StopTimeUpdate do
 
   defimpl Concentrate.Mergeable do
     @default_key_opts [stop_fn: &Gtfs.stop/1]
-    def key(%{trip_id: trip_id, stop_id: stop_id, stop_sequence: stop_sequence}, opts) do
+    def key(%{trip_id: trip_id, stop_id: stop_id, stop_sequence: stop_sequence}, opts \\ []) do
       opts = Keyword.merge(@default_key_opts, opts)
       stop_fn = opts[:stop_fn]
 
