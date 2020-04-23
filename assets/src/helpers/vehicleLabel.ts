@@ -43,7 +43,7 @@ export const runIdToLabel = (runId: RunId | null): string => {
 
 }
 
-const stripLeadingZero = (num: string): string =>
-  num.startsWith("0") ? num.slice(1) : num
+// const stripLeadingZero = (num: string): string =>
+//  num.startsWith("0") ? num.slice(1) : num
 
 export default vehicleLabel

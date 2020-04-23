@@ -16,7 +16,8 @@ export interface Property {
 }
 
 const vehicleProperties = (vehicle: Vehicle): Property[] => {
-  const { runId, label, operatorId, operatorName } = vehicle
+  // const { runId, label, operatorId, operatorName } = vehicle
+  const { runId, label } = vehicle
 
   return [
     {
