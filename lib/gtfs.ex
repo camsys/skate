@@ -329,7 +329,6 @@ defmodule Gtfs do
   @spec fetch_remote_files() :: {:files, Data.all_files()} | {:error, any()}
   def fetch_remote_files() do
     gtfs_url = Application.get_env(:skate, :gtfs_url)
-    hastus_url = Application.get_env(:skate, :hastus_url)
 
     gtfs_file_names = [
       "calendar.txt",
@@ -338,7 +337,8 @@ defmodule Gtfs do
       "shapes.txt",
       "stop_times.txt",
       "stops.txt",
-      "trips.txt"
+      "trips.txt",
+      "timepoint_times.txt"
     ]
 
 #    xgtfs_file_names = [
@@ -353,16 +353,18 @@ defmodule Gtfs do
 #      "trips.txt"
 #    ]
 
-    hastus_file_names = [
-      "trips.csv"
-    ]
+#    hastus_file_names = [
+#      "trips.csv"
+#    ]
 
-    with {:ok, hastus_files} <- fetch_zip(hastus_url, hastus_file_names),
-         {:ok, gtfs_files} <- fetch_zip(gtfs_url, gtfs_file_names) do
+#    with {:ok, hastus_files} <- fetch_zip(hastus_url, hastus_file_names),
+#         {:ok, gtfs_files} <- fetch_zip(gtfs_url, gtfs_file_names) do
+
+    with {:ok, gtfs_files} <- fetch_zip(gtfs_url, gtfs_file_names) do
       {:files,
        %{
-         gtfs: gtfs_files,
-         hastus: hastus_files
+         gtfs: gtfs_files
+#        hastus: hastus_files
        }}
     else
       {:error, error} ->
@@ -372,15 +374,19 @@ defmodule Gtfs do
 
   @spec fetch_zip(String.t(), [String.t()]) :: {:ok, Data.files()} | {:error, any()}
   def fetch_zip(url, file_names) do
-    case HTTPoison.get(url) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: zip_binary}} ->
-        unzipped_files = unzip_files(zip_binary, file_names)
-        {:ok, unzipped_files}
+#    TODO: I think this needs to have a check on whether file already downloaded or not
+#    case HTTPoison.get(url) do
+#      {:ok, %HTTPoison.Response{status_code: 200, body: zip_binary}} ->
+#        unzipped_files = unzip_files(zip_binary, file_names)
+#        {:ok, unzipped_files}
+#
+#      response ->
+#        Logger.warn(fn -> "Unexpected response from #{url} : #{inspect(response)}" end)
+#        {:error, response}
+#    end
 
-      response ->
-        Logger.warn(fn -> "Unexpected response from #{url} : #{inspect(response)}" end)
-        {:error, response}
-    end
+    unzipped_files = unzip_files(url, file_names)
+    {:ok, unzipped_files}
   end
 
   @spec files_from_mocked(mocked_files()) :: Data.all_files()
@@ -405,6 +411,7 @@ defmodule Gtfs do
   defp unzip_files(zip_binary, file_names) do
     # erlang needs file names as charlists.
     file_names = Enum.map(file_names, &String.to_charlist/1)
+    IO.inspect(file_names)
     {:ok, unzipped_files} = :zip.unzip(zip_binary, [{:file_list, file_names}, :memory])
 
     unzipped_files

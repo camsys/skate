@@ -31,12 +31,16 @@ export const runIdToLabel = (runId: RunId | null): string => {
   if (!runId) {
     return "N/A"
   }
-  const runParts: string[] = runId.split("-")
-  return runParts.length === 2
-    ? runParts[0] === "999"
-      ? stripLeadingZero(runParts[1])
-      : runParts[1]
-    : runId
+  return runId
+  /* const runParts: string[] = runId.split("-")
+   *    return runParts.length === 2
+   *      ? runParts[0] === "999"
+   *        ? stripLeadingZero(runParts[1])
+   *        : runParts[1]
+   *      : runId
+   */
+
+
 }
 
 const stripLeadingZero = (num: string): string =>

@@ -19,14 +19,6 @@ defmodule SkateWeb.RouteController do
     timepoint_ids_on_route_fn =
       Application.get_env(:skate_web, :timepoint_ids_on_route_fn, &Gtfs.timepoint_ids_on_route/1)
 
-#    timepoint_ids = timepoint_ids_on_route_fn.(route_id)
-    cond do
-      route_id == "5A" ->
-        json(conn, %{data: ["14253", "21616", "21602", "19357", "21975"]})
-      route_id == "70" ->
-        json(conn, %{data: ["21789", "19141", "18597", "2005471"]})
-      true ->
-      json(conn, %{data: timepoint_ids_on_route_fn.(route_id)})
-    end
+    json(conn, %{data: timepoint_ids_on_route_fn.(route_id)})
   end
 end

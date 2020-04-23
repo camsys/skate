@@ -30,30 +30,32 @@ defmodule Concentrate.Parser.SwiftlyRealtimeVehicles do
     {operator_name, operator_id} = vehicle_data |> Map.get("driver") |> operator_details()
 
     VehiclePosition.new(
-      id: Map.get(vehicle_data, "id"),
-      trip_id: Map.get(vehicle_data, "trip"),
-      stop_id: Map.get(vehicle_data, "nextStopId"),
-      latitude: Map.get(loc, "lat"),
-      longitude: Map.get(loc, "lon"),
-      last_updated: Map.get(loc, "time"),
-      speed: Map.get(loc, "speed"),
-      bearing: Map.get(loc, "heading"),
-      block_id: Map.get(vehicle_data, "block"),
-      run_id: Map.get(vehicle_data, "block"),
+      id: Map.get(vehicle_data, "id"), #HAVE
+      trip_id: Map.get(vehicle_data, "trip"), #HAVE
+      stop_id: Map.get(vehicle_data, "nextStopId"), #HAVE
+      latitude: Map.get(loc, "lat"), #HAVE
+      longitude: Map.get(loc, "lon"), #HAVE
+      last_updated: Map.get(loc, "time"), #HAVE
+      speed: Map.get(loc, "speed"), #HAVE
+      bearing: Map.get(loc, "heading"), #HAVE
+      #block_id: Map.get(vehicle_data, "blockId"),
+      #run_id: Map.get(vehicle_data, "runId"),
+      block_id: Map.get(vehicle_data, "block"), #HAVE
+      run_id: Map.get(vehicle_data, "block"), #HAVE
       operator_id: operator_id,
       operator_name: operator_name,
-      stop_name: Map.get(vehicle_data, "nextStopName"),
-      direction_id: vehicle_data |> Map.get("directionId") |> direction_id_from_string(),
-      headsign: Map.get(vehicle_data, "headsign"),
+      stop_name: Map.get(vehicle_data, "nextStopName"), #HAVE
+      direction_id: vehicle_data |> Map.get("direction") |> direction_id_from_string(), #HAVE
+      headsign: Map.get(vehicle_data, "headsign"), #HAVO
       headway_secs: Map.get(vehicle_data, "headwaySecs"),
-      is_nonrevenue: Map.get(vehicle_data, "layover", false),
-      layover_departure_time: Map.get(vehicle_data, "layoverDepTime"),
+      is_nonrevenue: Map.get(vehicle_data, "layover", false), #HAVE
+      layover_departure_time: Map.get(vehicle_data, "layoverDepTime"), #HAVE
       previous_vehicle_id: Map.get(vehicle_data, "previousVehicleId"),
       previous_vehicle_schedule_adherence_secs:
         Map.get(vehicle_data, "previousVehicleSchAdhSecs"),
       previous_vehicle_schedule_adherence_string:
         Map.get(vehicle_data, "previousVehicleSchAdhStr"),
-      route_id: Map.get(vehicle_data, "routeId"),
+      route_id: Map.get(vehicle_data, "routeId"), #HAVE
       schedule_adherence_secs: Map.get(vehicle_data, "schAdhSecs"),
       schedule_adherence_string: Map.get(vehicle_data, "schAdhStr"),
       scheduled_headway_secs: Map.get(vehicle_data, "scheduledHeadwaySecs"),

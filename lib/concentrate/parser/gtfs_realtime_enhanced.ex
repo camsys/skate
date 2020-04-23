@@ -17,19 +17,19 @@ defmodule Concentrate.Parser.GTFSRealtimeEnhanced do
   defp decode_entities(%{"entity" => entities}),
     do: Enum.flat_map(entities, &decode_feed_entity(&1))
 
-  defp decode_feed_entity(%{"trip_update" => %{} = trip_update}),
+  defp decode_feed_entity(trip_update),
     do: decode_trip_update(trip_update)
 
-  defp decode_feed_entity(%{"vehicle" => %{} = vehicle}), do: decode_vehicle(vehicle)
+  #defp decode_feed_entity(%{"vehicle" => %{} = vehicle}), do: decode_vehicle(vehicle)
 
-  defp decode_feed_entity(_), do: []
+  #defp decode_feed_entity(_), do: []
 
   @spec decode_trip_update(map()) :: [TripUpdate.t() | StopTimeUpdate.t()]
   def decode_trip_update(trip_update) do
     tu = decode_trip_descriptor(Map.get(trip_update, "trip"))
 
     stop_updates =
-      for stu <- Map.get(trip_update, "stop_time_update") do
+      for stu <- Map.get(trip_update, "stopTimeUpdates") do
         {arrival_time, arrival_uncertainty} = time_from_event(Map.get(stu, "arrival"))
         {departure_time, departure_uncertainty} = time_from_event(Map.get(stu, "departure"))
 

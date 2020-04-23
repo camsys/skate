@@ -91,7 +91,8 @@ defmodule Realtime.Ghost do
               trip_id: trip.id,
               headsign: trip.headsign,
               block_id: Block.first_trip(block).block_id,
-              run_id: trip.run_id,
+              #run_id: trip.run_id,
+              run_id: Block.first_trip(block).block_id,
               via_variant:
                 trip.route_pattern_id && RoutePattern.via_variant(trip.route_pattern_id),
               layover_departure_time:

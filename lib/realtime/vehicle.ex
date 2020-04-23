@@ -110,7 +110,8 @@ defmodule Realtime.Vehicle do
     trip_id = VehiclePosition.trip_id(vehicle_position)
     block_id = VehiclePosition.block_id(vehicle_position)
     stop_id = VehiclePosition.stop_id(vehicle_position)
-    run_id = ensure_run_id_hyphen(VehiclePosition.run_id(vehicle_position))
+    #run_id = ensure_run_id_hyphen(VehiclePosition.run_id(vehicle_position))
+    run_id = VehiclePosition.run_id(vehicle_position)
 
     trip = trip_fn.(trip_id)
     route_id = VehiclePosition.route_id(vehicle_position) || (trip && trip.route_id)
@@ -321,20 +322,20 @@ defmodule Realtime.Vehicle do
     stop_id == List.first(trip.stop_times).stop_id
   end
 
-  defp ensure_run_id_hyphen(nil) do
-    nil
-  end
-
-  defp ensure_run_id_hyphen(run_id) do
-    case String.at(run_id, 3) do
-      "-" ->
-        run_id
-
-      _ ->
-        {prefix, suffix} = String.split_at(run_id, 3)
-        prefix <> "-" <> suffix
-    end
-  end
+#  defp ensure_run_id_hyphen(nil) do
+#    nil
+#  end
+#
+#  defp ensure_run_id_hyphen(run_id) do
+#    case String.at(run_id, 3) do
+#      "-" ->
+#        run_id
+#
+#      _ ->
+#        {prefix, suffix} = String.split_at(run_id, 3)
+#        prefix <> "-" <> suffix
+#    end
+#  end
 end
 
 defimpl Jason.Encoder, for: MapSet do

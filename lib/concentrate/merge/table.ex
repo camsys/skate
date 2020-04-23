@@ -26,7 +26,7 @@ defmodule Concentrate.Merge.Table do
     item_list =
       Map.new(items, fn item ->
         module = Mergeable.impl_for!(item)
-        key = {module, module.key(item)}
+        key = {module, module.key(item, [])}
         {key, item}
       end)
 
