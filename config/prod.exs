@@ -1,8 +1,9 @@
 use Mix.Config
 
-config :skate,
-  redirect_http?: true,
-  static_href: {SkateWeb.Router.Helpers, :static_url}
+#config :skate,
+#  redirect_http?: true,
+#  static_href: {SkateWeb.Router.Helpers, :static_url}
+config :skate, Gtfs.CacheFile, cache_filename: "dev_cache.terms"
 
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
@@ -16,19 +17,19 @@ config :skate,
 config :skate, SkateWeb.Endpoint,
   server: true,
   http: [:inet6, port: System.get_env("PORT") || 4000],
-  url: [host: {:system, "HOST"}, port: 80],
-  static_url: [
-    scheme: {:system, "STATIC_SCHEME"},
-    host: {:system, "STATIC_HOST"},
-    port: {:system, "STATIC_PORT"},
-    path: {:system, "STATIC_PATH"}
-  ],
+#  url: [host: {:system, "HOST"}, port: 80],
+#  static_url: [
+#    scheme: {:system, "STATIC_SCHEME"},
+#    host: {:system, "STATIC_HOST"},
+#    port: {:system, "STATIC_PORT"},
+#    path: {:system, "STATIC_PATH"}
+#  ],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
-config :skate, :websocket_check_origin, [
-  "https://*.mbta.com",
-  "https://*.mbtace.com"
-]
+#config :skate, :websocket_check_origin, [
+#  "https://*.mbta.com",
+#  "https://*.mbtace.com"
+#]
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -40,7 +41,8 @@ config :logger, :console,
 # Configure Ueberauth to use Cognito
 config :ueberauth, Ueberauth,
   providers: [
-    cognito: {Ueberauth.Strategy.Cognito, []}
+    #cognito: {Ueberauth.Strategy.Cognito, []}
+    cognito: {Skate.Ueberauth.Strategy.Fake, []}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Cognito,
